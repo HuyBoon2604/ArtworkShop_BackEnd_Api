@@ -9,6 +9,7 @@ namespace AWS.Repositories.Interfaces
         Task<Artwork> GetArtworkId(string id);
         Task<List<Artwork>> SearchByName(string name);
         Task<Artwork> CreateArtwork(CreateArtwork createArtwork);
+        Task<Artwork> UpdateArtWork(string artworkId, UpdateArtWork updatedArtwork);
         Task<List<Artwork>> GetByGenre(string genreId);
 
     }

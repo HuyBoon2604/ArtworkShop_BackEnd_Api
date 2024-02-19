@@ -3,6 +3,6 @@
     public class SearchByFullNameDTO
     {
 
-        public string? FullName { get; set;}
+        public string? Username { get; set;}
     }
 }

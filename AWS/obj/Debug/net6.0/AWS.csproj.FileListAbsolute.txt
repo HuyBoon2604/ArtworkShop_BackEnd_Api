@@ -66,3 +66,5 @@ E:\GAP_KI\1\AWS\AWS\obj\Debug\net6.0\refint\AWS.dll
 E:\GAP_KI\1\AWS\AWS\obj\Debug\net6.0\AWS.pdb
 E:\GAP_KI\1\AWS\AWS\obj\Debug\net6.0\AWS.genruntimeconfig.cache
 E:\GAP_KI\1\AWS\AWS\obj\Debug\net6.0\ref\AWS.dll
+E:\GAP_KI\1\AWS\AWS\obj\Debug\net6.0\AWS.sourcelink.json
+E:\GAP_KI\1\AWS\AWS\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

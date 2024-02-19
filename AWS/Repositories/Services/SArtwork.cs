@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using AWS.Repositories.Interfaces;
 using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using System.Text.RegularExpressions;
+using ArtWorkShop.Repositories.Services;
 
 namespace AWS.Repositories.Services
 {
@@ -21,51 +22,94 @@ namespace AWS.Repositories.Services
         {
             try
             {
-
-
-                var newArtwork = new Artwork
+                var artwork = new Artwork
                 {
                     ArtworkId = "A" + Guid.NewGuid().ToString().Substring(0, 5),
-                    //UserId = createArtwork.UserId,
-                    ImageUrl = createArtwork.ImageUrl,
                     Title = createArtwork.Title,
                     Description = createArtwork.Description,
                     Price = createArtwork.Price,
-                    //GenreId = createArtwork.GenreId,
-                    //LinkShare = createArtwork.LinkShare,
-                    //Status = createArtwork.Status,
-                    LikeTimes = 0,
-                    Time = DateTime.Now,
+                    ImageUrl = createArtwork.ImageUrl,
                     Reason = createArtwork.Reason,
+                    Time = DateTime.Now, // Set current time
                 };
 
-
-                await this.cxt.Artworks.AddAsync(newArtwork);
-                await cxt.SaveChangesAsync();
-
-
-                if (await this.cxt.SaveChangesAsync() > 0)
-                {
-                    if (createArtwork.Gernes != null)
+                //Add Genres to the artwork if provided
+                if (createArtwork.Genres != null && createArtwork.Genres.Any())
                     {
-                        foreach (var x in createArtwork.Gernes)
+                        foreach (var genreDto in createArtwork.Genres)
                         {
-                            var st = new Gerne();
-                            st.ProductId = add.ProductId;
-                            st.StyleId = style.StyleID;
-                            st.Status = true;
-                            await this._context.StyleProduct.AddAsync(st);
-                            await this._context.SaveChangesAsync();
+                            var genre = await cxt.Genres.FindAsync(genreDto.GenreID);
+                            if (genre != null)
+                            {
+                                artwork.Genre = genre;
+                            }
+                            else
+                            {
+                                // Handle error if Genre doesn't exist
+                                throw new Exception($"Genre with ID {genreDto.GenreID} not found.");
+                            }
                         }
                     }
-                }
-                    return newArtwork;
 
+                cxt.Artworks.Add(artwork);
+                await cxt.SaveChangesAsync();
+
+                return artwork;
             }
             catch (Exception e)
             {
 
                 throw new Exception(e.Message);
+            }
+        }
+
+        public async Task<Artwork> UpdateArtWork(string artworkId, UpdateArtWork updatedArtwork)
+        {
+            try
+            {
+                // Retrieve the artwork from the database
+                var artwork = await cxt.Artworks.FindAsync(artworkId);
+
+                if (artwork == null)
+                {
+                    throw new Exception($"Artwork with ID {artworkId} not found.");
+                }
+
+                // Update the artwork properties
+                artwork.Title = updatedArtwork.Title ?? artwork.Title;
+                artwork.Description = updatedArtwork.Description ?? artwork.Description;
+                artwork.Price = updatedArtwork.Price.HasValue ? updatedArtwork.Price.Value : artwork.Price;
+                artwork.ImageUrl = updatedArtwork.ImageUrl ?? artwork.ImageUrl;
+                artwork.Reason = updatedArtwork.Reason ?? artwork.Reason;
+                artwork.GenreId = updatedArtwork.GenreId ?? artwork.GenreId;
+                // Update the genre if provided
+                if (updatedArtwork.GenreId == null)
+                {
+                    artwork.GenreId = null;
+                }
+                if (updatedArtwork.GenreId != null)
+                {
+                    var genre = await cxt.Genres.FindAsync(updatedArtwork.GenreId);
+                    if (genre != null)
+                    {
+                        artwork.Genre = genre;
+                    }
+                    else
+                    {
+                        throw new Exception($"Genre with ID {updatedArtwork.GenreId} not found.");
+                    }
+                }
+
+
+                // Update the artwork in the database
+                cxt.Artworks.Update(artwork);
+                await cxt.SaveChangesAsync();
+
+                return artwork;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("An error occurred while updating artwork.", e);
             }
         }
 

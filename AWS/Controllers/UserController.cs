@@ -73,5 +73,57 @@ namespace AWS.Controllers
                 return BadRequest(ex);
             }
         }
+
+        /// <returns></returns>
+        [AllowAnonymous]
+        [Route("update")]
+        [HttpPut]
+        public async Task<IActionResult> Update(string id, UpdateDTO user)
+        {
+            try
+            {
+                var a = await this.user.Update(id,user);
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex);
+            }
+        }
+
+        [AllowAnonymous]
+        [Route("search-by-name")]
+        [HttpPost]
+        public async Task<IActionResult> Search(SearchByFullNameDTO user)
+        {
+            try
+            {
+                var a = await this.user.SearchByName(user);
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex);
+            }
+        }
+
+        [AllowAnonymous]
+        [Route("delete")]
+        [HttpDelete]
+        public async Task<IActionResult> Delete(RemoveDTO user)
+        {
+            try
+            {
+                var a = await this.user.Dellete(user);
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex);
+            }
+        }
     }
 }

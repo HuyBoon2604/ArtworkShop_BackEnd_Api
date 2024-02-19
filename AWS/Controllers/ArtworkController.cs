@@ -137,5 +137,29 @@ namespace AWS.Controllers
             }
 
         }
+
+        [HttpPost]
+        [Route("update-artwork")]
+
+        public async Task<IActionResult> UpdateArtwork(string artworkId, UpdateArtWork updatedArtwork)
+        {
+            try
+            {
+                var a = await this.artwork.UpdateArtWork(artworkId,updatedArtwork);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the CreateArtwork method: {ex}");
+
+                throw;
+            }
+
+        }
     }
 }
