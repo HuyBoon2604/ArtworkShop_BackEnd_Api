@@ -7,7 +7,6 @@ namespace AWS.Models
     {
         public Ordertb()
         {
-            PaymentLogs = new HashSet<PaymentLog>();
             Payments = new HashSet<Payment>();
             TransactionLogs = new HashSet<TransactionLog>();
         }
@@ -19,7 +18,6 @@ namespace AWS.Models
 
         public virtual Artwork? Artwork { get; set; }
         public virtual Usertb? User { get; set; }
-        public virtual ICollection<PaymentLog> PaymentLogs { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }
         public virtual ICollection<TransactionLog> TransactionLogs { get; set; }
     }
