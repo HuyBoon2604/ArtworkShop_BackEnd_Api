@@ -19,8 +19,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-    // Add any other JSON serialization settings as needed
-}); 
+    //Add any other JSON serialization settings as needed
+});
 
 
 
@@ -38,6 +38,7 @@ builder.Services.AddScoped<IUser, SUser>();
 builder.Services.AddScoped<IArtwork, SArtwork>();
 builder.Services.AddScoped<IGenre, SGenre>();
 builder.Services.AddScoped<IOrder, SOrder>();
+builder.Services.AddScoped<IPayment, SPayment>();
 
 
 builder.Services.AddSwaggerGen(option =>
@@ -71,11 +72,7 @@ option.AddSecurityRequirement(new OpenApiSecurityRequirement
 });
 
 
-var options = new JsonSerializerOptions
-{
-    ReferenceHandler = ReferenceHandler.Preserve,
-    // Other options
-};
+
 // add jwt
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {

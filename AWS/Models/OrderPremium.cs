@@ -12,6 +12,7 @@ namespace AWS.Models
 
         public string OrderPremiumId { get; set; } = null!;
         public string? PremiumId { get; set; }
+        public bool? Status { get; set; }
         public DateTime? OrderDate { get; set; }
 
         public virtual Premium? Premium { get; set; }

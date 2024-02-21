@@ -7,6 +7,7 @@ namespace AWS.Models
     {
         public string OrderPremiumLogId { get; set; } = null!;
         public string? OrderPremiumId { get; set; }
+        public bool? Status { get; set; }
         public DateTime? LogDate { get; set; }
 
         public virtual OrderPremium? OrderPremium { get; set; }

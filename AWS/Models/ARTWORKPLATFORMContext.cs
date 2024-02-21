@@ -172,7 +172,7 @@ namespace AWS.Models
             modelBuilder.Entity<Ordertb>(entity =>
             {
                 entity.HasKey(e => e.OrderId)
-                    .HasName("PK__Ordertb__C3905BAF5F086217");
+                    .HasName("PK__Ordertb__C3905BAF42614D3C");
 
                 entity.ToTable("Ordertb");
 
@@ -185,6 +185,8 @@ namespace AWS.Models
                     .HasColumnName("ArtworkID");
 
                 entity.Property(e => e.CreateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Total).HasColumnType("decimal(10, 0)");
 
                 entity.Property(e => e.UserId)
                     .HasMaxLength(50)
@@ -278,7 +280,7 @@ namespace AWS.Models
             modelBuilder.Entity<TransactionLog>(entity =>
             {
                 entity.HasKey(e => e.TransactionId)
-                    .HasName("PK__Transact__55433A4B6A33699A");
+                    .HasName("PK__Transact__55433A4B8FEDA052");
 
                 entity.ToTable("Transaction_Log");
 
@@ -305,7 +307,7 @@ namespace AWS.Models
             modelBuilder.Entity<Usertb>(entity =>
             {
                 entity.HasKey(e => e.UserId)
-                    .HasName("PK__Usertb__1788CCACFA154B72");
+                    .HasName("PK__Usertb__1788CCAC3E68F33A");
 
                 entity.ToTable("Usertb");
 
@@ -354,7 +356,7 @@ namespace AWS.Models
                         r => r.HasOne<Usertb>().WithMany().HasForeignKey("UserId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Like_Coll__UserI__6754599E"),
                         j =>
                         {
-                            j.HasKey("UserId", "ArtworkId").HasName("PK__Like_Col__BA8FF6472B819FD7");
+                            j.HasKey("UserId", "ArtworkId").HasName("PK__Like_Col__BA8FF64717485A9F");
 
                             j.ToTable("Like_Collection");
 
@@ -371,7 +373,7 @@ namespace AWS.Models
                         r => r.HasOne<Usertb>().WithMany().HasForeignKey("UserId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__User_Role__UserI__6FE99F9F"),
                         j =>
                         {
-                            j.HasKey("UserId", "RoleId").HasName("PK__User_Rol__BA0867E70E1DB907");
+                            j.HasKey("UserId", "RoleId").HasName("PK__User_Rol__BA0867E71A438D40");
 
                             j.ToTable("User_Role");
 

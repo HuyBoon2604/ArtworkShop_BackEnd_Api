@@ -23,6 +23,14 @@ namespace AWS.Repositories.Services
                 add.ArtworkId = order.ArtwokID;
                 add.UserId = order.UserID;
                 add.CreateDate = order.CreateDate;
+                add.Status = false;
+
+                var artwork = await cxt.Artworks.FindAsync(order.ArtwokID);
+                if (artwork != null)
+                {
+                    add.Total = artwork.Price; // Gán giá trị Price từ Artwork cho đơn hàng
+                }
+
                 await this.cxt.Ordertbs.AddAsync(add);
                 await this.cxt.SaveChangesAsync();
                 return add;

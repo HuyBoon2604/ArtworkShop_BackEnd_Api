@@ -67,8 +67,8 @@ namespace ArtWorkShop.Repositories.Services
             {
                 throw new Exception($"{ex.Message}");
             }
-        }
-
+        } 
+ 
         private string CreateToken(Usertb user)
         {
 

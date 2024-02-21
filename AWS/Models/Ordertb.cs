@@ -15,6 +15,8 @@ namespace AWS.Models
         public string? UserId { get; set; }
         public string? ArtworkId { get; set; }
         public DateTime? CreateDate { get; set; }
+        public bool? Status { get; set; }
+        public decimal? Total { get; set; }
 
         public virtual Artwork? Artwork { get; set; }
         public virtual Usertb? User { get; set; }
