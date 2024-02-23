@@ -8,8 +8,8 @@ namespace AWS.Models
         public Artwork()
         {
             Comments = new HashSet<Comment>();
+            LikeCollections = new HashSet<LikeCollection>();
             Ordertbs = new HashSet<Ordertb>();
-            Users = new HashSet<Usertb>();
         }
 
         public string ArtworkId { get; set; } = null!;
@@ -29,8 +29,7 @@ namespace AWS.Models
         public virtual Genre? Genre { get; set; }
         public virtual Usertb? User { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<LikeCollection> LikeCollections { get; set; }
         public virtual ICollection<Ordertb> Ordertbs { get; set; }
-
-        public virtual ICollection<Usertb> Users { get; set; }
     }
 }

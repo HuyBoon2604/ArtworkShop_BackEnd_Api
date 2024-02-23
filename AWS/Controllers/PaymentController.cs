@@ -63,5 +63,29 @@ namespace AWS.Controllers
             }
 
         }
+
+        [HttpGet]
+        [Route("get-payments")]
+
+        public async Task<IActionResult> GetAllPayement()
+        {
+            try
+            {
+                var a = await this.payment.GetPaymentList();
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the GetAllPayement method: {ex}");
+
+                throw;
+            }
+
+        }
     }
 }

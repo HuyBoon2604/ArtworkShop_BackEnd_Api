@@ -9,8 +9,8 @@ namespace AWS.Models
         {
             Artworks = new HashSet<Artwork>();
             Comments = new HashSet<Comment>();
+            LikeCollections = new HashSet<LikeCollection>();
             Ordertbs = new HashSet<Ordertb>();
-            ArtworksNavigation = new HashSet<Artwork>();
             Roles = new HashSet<Role>();
         }
 
@@ -30,9 +30,9 @@ namespace AWS.Models
         public virtual Premium? Premium { get; set; }
         public virtual ICollection<Artwork> Artworks { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<LikeCollection> LikeCollections { get; set; }
         public virtual ICollection<Ordertb> Ordertbs { get; set; }
 
-        public virtual ICollection<Artwork> ArtworksNavigation { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
     }
 }

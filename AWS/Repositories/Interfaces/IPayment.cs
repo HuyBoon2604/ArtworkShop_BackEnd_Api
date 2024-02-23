@@ -6,5 +6,6 @@ namespace AWS.Repositories.Interfaces
     {
         Task<Payment> createPayment(string OrderId);
         Task<Payment> GetPayment(string OrderId);
+        Task<List<Payment>> GetPaymentList();
     }
 }

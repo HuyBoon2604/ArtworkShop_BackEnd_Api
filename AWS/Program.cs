@@ -39,6 +39,7 @@ builder.Services.AddScoped<IArtwork, SArtwork>();
 builder.Services.AddScoped<IGenre, SGenre>();
 builder.Services.AddScoped<IOrder, SOrder>();
 builder.Services.AddScoped<IPayment, SPayment>();
+builder.Services.AddScoped<ICollection, SCollection>();
 
 
 builder.Services.AddSwaggerGen(option =>

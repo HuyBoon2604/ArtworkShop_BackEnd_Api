@@ -19,6 +19,7 @@ namespace AWS.Models
         public virtual DbSet<Artwork> Artworks { get; set; } = null!;
         public virtual DbSet<Comment> Comments { get; set; } = null!;
         public virtual DbSet<Genre> Genres { get; set; } = null!;
+        public virtual DbSet<LikeCollection> LikeCollections { get; set; } = null!;
         public virtual DbSet<OrderPremium> OrderPremia { get; set; } = null!;
         public virtual DbSet<OrderPremiumLog> OrderPremiumLogs { get; set; } = null!;
         public virtual DbSet<Ordertb> Ordertbs { get; set; } = null!;
@@ -129,6 +130,36 @@ namespace AWS.Models
                 entity.Property(e => e.Name).HasMaxLength(255);
             });
 
+            modelBuilder.Entity<LikeCollection>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.ArtworkId })
+                    .HasName("PK__Like_Col__BA8FF64717485A9F");
+
+                entity.ToTable("Like_Collection");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .HasColumnName("UserID");
+
+                entity.Property(e => e.ArtworkId)
+                    .HasMaxLength(50)
+                    .HasColumnName("ArtworkID");
+
+                entity.Property(e => e.Time).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Artwork)
+                    .WithMany(p => p.LikeCollections)
+                    .HasForeignKey(d => d.ArtworkId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Like_Coll__Artwo__66603565");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.LikeCollections)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Like_Coll__UserI__6754599E");
+            });
+
             modelBuilder.Entity<OrderPremium>(entity =>
             {
                 entity.ToTable("Order_Premium");
@@ -218,6 +249,10 @@ namespace AWS.Models
                 entity.Property(e => e.OrderId)
                     .HasMaxLength(50)
                     .HasColumnName("OrderID");
+
+                entity.Property(e => e.TransactionCode).HasMaxLength(50);
+
+                entity.Property(e => e.VnpTransDate).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.Payments)
@@ -347,23 +382,6 @@ namespace AWS.Models
                     .WithMany(p => p.Usertbs)
                     .HasForeignKey(d => d.PremiumId)
                     .HasConstraintName("FK__Usertb__PremiumI__70DDC3D8");
-
-                entity.HasMany(d => d.ArtworksNavigation)
-                    .WithMany(p => p.Users)
-                    .UsingEntity<Dictionary<string, object>>(
-                        "LikeCollection",
-                        l => l.HasOne<Artwork>().WithMany().HasForeignKey("ArtworkId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Like_Coll__Artwo__66603565"),
-                        r => r.HasOne<Usertb>().WithMany().HasForeignKey("UserId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Like_Coll__UserI__6754599E"),
-                        j =>
-                        {
-                            j.HasKey("UserId", "ArtworkId").HasName("PK__Like_Col__BA8FF64717485A9F");
-
-                            j.ToTable("Like_Collection");
-
-                            j.IndexerProperty<string>("UserId").HasMaxLength(50).HasColumnName("UserID");
-
-                            j.IndexerProperty<string>("ArtworkId").HasMaxLength(50).HasColumnName("ArtworkID");
-                        });
 
                 entity.HasMany(d => d.Roles)
                     .WithMany(p => p.Users)

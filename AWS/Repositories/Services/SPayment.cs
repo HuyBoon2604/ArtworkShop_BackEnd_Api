@@ -58,5 +58,19 @@ namespace AWS.Repositories.Services
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<List<Payment>> GetPaymentList()
+        {
+            try
+            {
+                var list = await this.context.Payments.ToListAsync();
+                return list;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
