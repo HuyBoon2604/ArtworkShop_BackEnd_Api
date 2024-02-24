@@ -65,11 +65,13 @@ namespace AWS.Models
 
                 entity.Property(e => e.Reason).HasMaxLength(255);
 
-                entity.Property(e => e.StatusLike).HasColumnName("Status_Like");
-
                 entity.Property(e => e.StatusProcessing).HasColumnName("Status_Processing");
 
                 entity.Property(e => e.Time).HasColumnType("datetime");
+
+                entity.Property(e => e.TimeProcessing)
+                    .HasColumnType("datetime")
+                    .HasColumnName("Time_Processing");
 
                 entity.Property(e => e.Title).HasMaxLength(255);
 

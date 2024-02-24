@@ -4,6 +4,7 @@ using AWS.DTO.ArtworkDTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Specialized;
+using AWS.DTO;
 
 namespace AWS.Controllers
 {
@@ -114,6 +115,31 @@ namespace AWS.Controllers
 
         }
 
+        [HttpGet]
+        [Route("get-history-artwork-true")]
+
+        public async Task<IActionResult> GetHistoryOfArtworkStatusTrue()
+        {
+            try
+            {
+                var a = await this.artwork.GetArtworkStatusTrue();
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the GetHistoryOfArtworkStatusTrue method: {ex}");
+
+                throw;
+            }
+
+        }
+        
+
         [HttpPost]
         [Route("create-new-artwork")]
 
@@ -145,7 +171,7 @@ namespace AWS.Controllers
         {
             try
             {
-                var a = await this.artwork.UpdateArtWork(artworkId,updatedArtwork);
+                var a = await this.artwork.UpdateArtWork(artworkId, updatedArtwork);
                 if (a == null)
                 {
                     return NotFound();
@@ -156,6 +182,29 @@ namespace AWS.Controllers
             {
 
                 Console.WriteLine($"An error occurred in the CreateArtwork method: {ex}");
+
+                throw;
+            }
+
+        }
+        [HttpPost]
+        [Route("update-artwork-proccessing")]
+
+        public async Task<IActionResult> UpdateArtworkProccessing(string artworkId, UpdateArtWorkProccessing updatedArtwork)
+        {
+            try
+            {
+                var a = await this.artwork.UpdateArtWorkProccessing(artworkId, updatedArtwork);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the UpdateArtworkProccessing method: {ex}");
 
                 throw;
             }

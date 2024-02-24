@@ -8,5 +8,7 @@
         public string ImageUrl { get; set; }
         public string Reason { get; set; }
         public string GenreId { get; set; }
+      
+
     }
 }

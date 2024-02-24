@@ -6,6 +6,7 @@ using AWS.Repositories.Interfaces;
 using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using System.Text.RegularExpressions;
 using ArtWorkShop.Repositories.Services;
+using AWS.DTO;
 
 namespace AWS.Repositories.Services
 {
@@ -31,6 +32,7 @@ namespace AWS.Repositories.Services
                     ImageUrl = createArtwork.ImageUrl,
                     Reason = createArtwork.Reason,
                     Time = DateTime.Now, // Set current time
+                    StatusProcessing = false
                 };
 
                 //Add Genres to the artwork if provided
@@ -82,23 +84,73 @@ namespace AWS.Repositories.Services
                 artwork.ImageUrl = updatedArtwork.ImageUrl ?? artwork.ImageUrl;
                 artwork.Reason = updatedArtwork.Reason ?? artwork.Reason;
                 artwork.GenreId = updatedArtwork.GenreId ?? artwork.GenreId;
+                artwork.Time = DateTime.Now;
                 // Update the genre if provided
-                if (updatedArtwork.GenreId == null)
+                //if (updatedArtwork.GenreId == null)
+                //{
+                //    artwork.GenreId = null;
+                //}
+                //if (updatedArtwork.GenreId != null)
+                //{
+                //    var genre = await cxt.Genres.FindAsync(updatedArtwork.GenreId);
+                //    if (genre != null)
+                //    {
+                //        artwork.Genre = genre;
+                //    }
+                //    else
+                //    {
+                //        throw new Exception($"Genre with ID {updatedArtwork.GenreId} not found.");
+                //    }
+                //}
+
+
+                // Update the artwork in the database
+                cxt.Artworks.Update(artwork);
+                await cxt.SaveChangesAsync();
+
+                return artwork;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("An error occurred while updating artwork.", e);
+            }
+        }
+
+        public async Task<Artwork> UpdateArtWorkProccessing(string artworkId, UpdateArtWorkProccessing updatedArtwork)
+        {
+            try
+            {
+                // Retrieve the artwork from the database
+                var artwork = await cxt.Artworks.FindAsync(artworkId);
+
+                if (artwork == null)
                 {
-                    artwork.GenreId = null;
+                    throw new Exception($"Artwork with ID {artworkId} not found.");
                 }
-                if (updatedArtwork.GenreId != null)
-                {
-                    var genre = await cxt.Genres.FindAsync(updatedArtwork.GenreId);
-                    if (genre != null)
-                    {
-                        artwork.Genre = genre;
-                    }
-                    else
-                    {
-                        throw new Exception($"Genre with ID {updatedArtwork.GenreId} not found.");
-                    }
-                }
+
+                // Update the artwork properties
+             
+                artwork.Reason = updatedArtwork.Reason ?? artwork.Reason;
+              
+                artwork.TimeProcessing = DateTime.Now;
+                artwork.StatusProcessing = true;
+                // Update the genre if provided
+                //if (updatedArtwork.GenreId == null)
+                //{
+                //    artwork.GenreId = null;
+                //}
+                //if (updatedArtwork.GenreId != null)
+                //{
+                //    var genre = await cxt.Genres.FindAsync(updatedArtwork.GenreId);
+                //    if (genre != null)
+                //    {
+                //        artwork.Genre = genre;
+                //    }
+                //    else
+                //    {
+                //        throw new Exception($"Genre with ID {updatedArtwork.GenreId} not found.");
+                //    }
+                //}
 
 
                 // Update the artwork in the database
@@ -164,6 +216,22 @@ namespace AWS.Repositories.Services
             {
                 var artworks = await this.cxt.Artworks
                .Where(a => a.GenreId == genreId)
+               .ToListAsync();
+
+                return artworks;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<List<Artwork>> GetArtworkStatusTrue()
+        {
+            try
+            {
+                var artworks = await this.cxt.Artworks
+               .Where(a => a.StatusProcessing == true)
                .ToListAsync();
 
                 return artworks;

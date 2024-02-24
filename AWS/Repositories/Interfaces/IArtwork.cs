@@ -1,4 +1,5 @@
-﻿using AWS.DTO.ArtworkDTO;
+﻿using AWS.DTO;
+using AWS.DTO.ArtworkDTO;
 using AWS.Models;
 
 namespace AWS.Repositories.Interfaces
@@ -10,7 +11,10 @@ namespace AWS.Repositories.Interfaces
         Task<List<Artwork>> SearchByName(string name);
         Task<Artwork> CreateArtwork(CreateArtwork createArtwork);
         Task<Artwork> UpdateArtWork(string artworkId, UpdateArtWork updatedArtwork);
+        Task<Artwork> UpdateArtWorkProccessing(string artworkId, UpdateArtWorkProccessing updatedArtwork);
         Task<List<Artwork>> GetByGenre(string genreId);
+        Task<List<Artwork>> GetArtworkStatusTrue();
+
 
     }
 }
