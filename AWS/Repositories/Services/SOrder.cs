@@ -1,7 +1,9 @@
-﻿using AWS.DTO.Order;
+﻿using AWS.DTO.ArtworkDTO;
+using AWS.DTO.Order;
 using AWS.Models;
 using AWS.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace AWS.Repositories.Services
 {
@@ -71,6 +73,67 @@ namespace AWS.Repositories.Services
                 throw new Exception(ex.Message);
             }
           
+        }
+
+        public async Task<Ordertb> GetOrderByStatusFalse(string id)
+        {
+            try
+            {
+                var a = await this.cxt.Ordertbs.Where(x => x.Status==false && x.OrderId.Equals(id)).FirstOrDefaultAsync();
+                return a;
+            }
+            catch (Exception ex)
+            {
+
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<Ordertb> GetOrderByStatusTrue(string id)
+        {
+             try
+            {
+                var a = await this.cxt.Ordertbs.Where(x => x.Status == true && x.OrderId.Equals(id)).FirstOrDefaultAsync();
+                return a;
+            }
+            catch (Exception ex)
+            {
+
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<Ordertb> UpdateOrder(string paymentID)
+        {
+            try
+            {
+                // Find the payment associated with the paymentId
+                var payment = await cxt.Payments.FirstOrDefaultAsync(p => p.PaymentId == paymentID);
+
+                // Find the order associated with the payment
+                var order = await cxt.Ordertbs.FirstOrDefaultAsync(o => o.OrderId == payment.OrderId);
+           
+                // Update order status based on payment status
+                if (payment.Status == true)
+                {
+                    order.Status = true; // Assuming true means paid
+                }
+                else
+                {
+                    order.Status = false; // Assuming false means unpaid
+                }
+
+                cxt.Ordertbs.Update(order);
+                await cxt.SaveChangesAsync();
+
+                return order;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

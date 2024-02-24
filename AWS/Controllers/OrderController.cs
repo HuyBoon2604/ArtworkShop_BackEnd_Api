@@ -64,6 +64,53 @@ namespace AWS.Controllers
 
         }
 
+        [HttpGet]
+        [Route("get-by-id-true")]
+
+        public async Task<IActionResult> GetByIdTrue(string id)
+        {
+            try
+            {
+                var a = await this.order.GetOrderByStatusTrue(id);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the GetByIdTrue method: {ex}");
+
+                throw;
+            }
+
+        }
+        [HttpGet]
+        [Route("get-by-id-false")]
+
+        public async Task<IActionResult> GetByIdFalse(string id)
+        {
+            try
+            {
+                var a = await this.order.GetOrderByStatusFalse(id);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the GetOrderByStatusFalse method: {ex}");
+
+                throw;
+            }
+
+        }
+
         [HttpPost]
         [Route("create-new-order")]
 
@@ -85,7 +132,29 @@ namespace AWS.Controllers
 
                 throw;
             }
-
         }
+            [HttpPost]
+            [Route("update-order")]
+
+            public async Task<IActionResult> UpdateOrder(string order)
+            {
+                try
+                {
+                    var a = await this.order.UpdateOrder(order);
+                    if (a == null)
+                    {
+                        return NotFound();
+                    }
+                    return Ok(a);
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine($"An error occurred in the UpdateOrder method: {ex}");
+
+                    throw;
+                }
+
+            }
     }
 }

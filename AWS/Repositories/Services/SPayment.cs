@@ -59,6 +59,25 @@ namespace AWS.Repositories.Services
             }
         }
 
+        public async Task<Payment> GetPaymentFail(string OrderId)
+        {
+            try
+            {
+                var payment = await this.context.Payments
+                                .Where(x => x.OrderId.Equals(OrderId) && x.Status==false)
+                                .FirstOrDefaultAsync();
+                if (payment != null)
+                {
+                    return payment;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<List<Payment>> GetPaymentList()
         {
             try
@@ -70,6 +89,54 @@ namespace AWS.Repositories.Services
             {
 
                 throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<Payment> GetPaymentSuccess(string OrderId)
+        {
+            try
+            {
+                var payment = await this.context.Payments
+                                .Where(x => x.OrderId.Equals(OrderId) && x.Status == true)
+                                .FirstOrDefaultAsync();
+                if (payment != null)
+                {
+                    return payment;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<Payment> UpdatePayment(string id)
+        {
+
+            try
+            {
+                // Retrieve the artwork from the database
+                var payment = await context.Payments.FindAsync(id);
+
+                if (payment == null)
+                {
+                    throw new Exception($"Artwork with ID {payment} not found.");
+                }
+
+                // Update the artwork properties
+                payment.Status = true;
+
+
+                // Update the artwork in the database
+                context.Payments.Update(payment);
+                await context.SaveChangesAsync();
+
+                return payment;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("An error occurred while updating order.", e);
             }
         }
     }
