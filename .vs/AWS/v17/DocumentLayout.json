@@ -3,10 +3,6 @@
   "WorkspaceRootPath": "D:\\New folder\\ArtworkShop_BackEnd_Api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B1FB43BA-385A-4A5C-B470-496284D91E7F}|AWS\\AWS.csproj|d:\\new folder\\artworkshop_backend_api\\aws\\aws.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
-      "RelativeMoniker": "D:0:0:{B1FB43BA-385A-4A5C-B470-496284D91E7F}|AWS\\AWS.csproj|solutionrelative:aws\\aws.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B1FB43BA-385A-4A5C-B470-496284D91E7F}|AWS\\AWS.csproj|d:\\new folder\\artworkshop_backend_api\\aws\\repositories\\interfaces\\ipremium.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B1FB43BA-385A-4A5C-B470-496284D91E7F}|AWS\\AWS.csproj|solutionrelative:aws\\repositories\\interfaces\\ipremium.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -35,18 +31,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AWS",
-              "DocumentMoniker": "D:\\New folder\\ArtworkShop_BackEnd_Api\\AWS\\AWS.csproj",
-              "RelativeDocumentMoniker": "AWS\\AWS.csproj",
-              "ToolTip": "D:\\New folder\\ArtworkShop_BackEnd_Api\\AWS\\AWS.csproj",
-              "RelativeToolTip": "AWS\\AWS.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-02-26T07:11:10.542Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "IPremium.cs",
               "DocumentMoniker": "D:\\New folder\\ArtworkShop_BackEnd_Api\\AWS\\Repositories\\Interfaces\\IPremium.cs",
               "RelativeDocumentMoniker": "AWS\\Repositories\\Interfaces\\IPremium.cs",
@@ -59,7 +43,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "PremiumArtworkDTO.cs",
               "DocumentMoniker": "D:\\New folder\\ArtworkShop_BackEnd_Api\\AWS\\DTO\\PremiumArtworkDTO.cs",
               "RelativeDocumentMoniker": "AWS\\DTO\\PremiumArtworkDTO.cs",
@@ -71,7 +55,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "SOrder.cs",
               "DocumentMoniker": "D:\\New folder\\ArtworkShop_BackEnd_Api\\AWS\\Repositories\\Services\\SOrder.cs",
               "RelativeDocumentMoniker": "AWS\\Repositories\\Services\\SOrder.cs",
