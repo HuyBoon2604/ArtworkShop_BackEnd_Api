@@ -1,0 +1,391 @@
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+
+namespace AWS.Models
+{
+    public partial class ARTWORKPLATFORMContext : DbContext
+    {
+        public ARTWORKPLATFORMContext()
+        {
+        }
+
+        public ARTWORKPLATFORMContext(DbContextOptions<ARTWORKPLATFORMContext> options)
+            : base(options)
+        {
+        }
+
+        public virtual DbSet<Artwork> Artworks { get; set; } = null!;
+        public virtual DbSet<Comment> Comments { get; set; } = null!;
+        public virtual DbSet<Genre> Genres { get; set; } = null!;
+        public virtual DbSet<OrderPremium> OrderPremium { get; set; } = null!;
+        public virtual DbSet<OrderPremiumLog> OrderPremiumLogs { get; set; } = null!;
+        public virtual DbSet<Ordertb> Ordertbs { get; set; } = null!;
+        public virtual DbSet<Payment> Payments { get; set; } = null!;
+        public virtual DbSet<PaymentLog> PaymentLogs { get; set; } = null!;
+        public virtual DbSet<Premium> Premium { get; set; } = null!;
+        public virtual DbSet<Role> Roles { get; set; } = null!;
+        public virtual DbSet<TransactionLog> TransactionLogs { get; set; } = null!;
+        public virtual DbSet<Usertb> Usertbs { get; set; } = null!;
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=ASUS;Database=ARTWORKPLATFORM;User Id=sa;Password=12345;");
+            }
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Artwork>(entity =>
+            {
+                entity.ToTable("Artwork");
+
+                entity.Property(e => e.ArtworkId)
+                    .HasMaxLength(50)
+                    .HasColumnName("ArtworkID");
+
+                entity.Property(e => e.Description).HasColumnType("text");
+
+                entity.Property(e => e.GenreId)
+                    .HasMaxLength(50)
+                    .HasColumnName("GenreID");
+
+                entity.Property(e => e.ImageUrl).HasColumnName("ImageURL");
+
+                entity.Property(e => e.LikeTimes).HasColumnName("Like_times");
+
+                entity.Property(e => e.LinkShare).HasMaxLength(255);
+
+                entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
+
+                entity.Property(e => e.Reason).HasMaxLength(255);
+
+                entity.Property(e => e.StatusLike).HasColumnName("Status_Like");
+
+                entity.Property(e => e.StatusProcessing).HasColumnName("Status_Processing");
+
+                entity.Property(e => e.Time).HasColumnType("datetime");
+
+                entity.Property(e => e.Title).HasMaxLength(255);
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .HasColumnName("UserID");
+
+                entity.HasOne(d => d.Genre)
+                    .WithMany(p => p.Artworks)
+                    .HasForeignKey(d => d.GenreId)
+                    .HasConstraintName("FK__Artwork__GenreID__628FA481");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Artworks)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK__Artwork__UserID__6383C8BA");
+            });
+
+            modelBuilder.Entity<Comment>(entity =>
+            {
+                entity.ToTable("Comment");
+
+                entity.Property(e => e.CommentId)
+                    .HasMaxLength(50)
+                    .HasColumnName("CommentID");
+
+                entity.Property(e => e.ArtworkId)
+                    .HasMaxLength(50)
+                    .HasColumnName("ArtworkID");
+
+                entity.Property(e => e.Text).HasMaxLength(255);
+
+                entity.Property(e => e.Timestamp).HasColumnType("datetime");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .HasColumnName("UserID");
+
+                entity.HasOne(d => d.Artwork)
+                    .WithMany(p => p.Comments)
+                    .HasForeignKey(d => d.ArtworkId)
+                    .HasConstraintName("FK__Comment__Artwork__6477ECF3");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Comments)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK__Comment__UserID__656C112C");
+            });
+
+            modelBuilder.Entity<Genre>(entity =>
+            {
+                entity.ToTable("Genre");
+
+                entity.Property(e => e.GenreId)
+                    .HasMaxLength(50)
+                    .HasColumnName("GenreID");
+
+                entity.Property(e => e.Name).HasMaxLength(255);
+            });
+
+            modelBuilder.Entity<OrderPremium>(entity =>
+            {
+                entity.ToTable("Order_Premium");
+
+                entity.Property(e => e.OrderPremiumId)
+                    .HasMaxLength(255)
+                    .HasColumnName("Order_PremiumID");
+
+                entity.Property(e => e.OrderDate).HasColumnType("date");
+
+                entity.Property(e => e.PremiumId)
+                    .HasMaxLength(50)
+                    .HasColumnName("PremiumID");
+
+                entity.HasOne(d => d.Premium)
+                    .WithMany(p => p.OrderPremia)
+                    .HasForeignKey(d => d.PremiumId)
+                    .HasConstraintName("FK__Order_Pre__Premi__68487DD7");
+            });
+
+            modelBuilder.Entity<OrderPremiumLog>(entity =>
+            {
+                entity.ToTable("order_premium_log");
+
+                entity.Property(e => e.OrderPremiumLogId)
+                    .HasMaxLength(255)
+                    .HasColumnName("Order_Premium_LogID");
+
+                entity.Property(e => e.LogDate).HasColumnType("datetime");
+
+                entity.Property(e => e.OrderPremiumId)
+                    .HasMaxLength(255)
+                    .HasColumnName("Order_PremiumID");
+
+                entity.HasOne(d => d.OrderPremium)
+                    .WithMany(p => p.OrderPremiumLogs)
+                    .HasForeignKey(d => d.OrderPremiumId)
+                    .HasConstraintName("FK__order_pre__Order__693CA210");
+            });
+
+            modelBuilder.Entity<Ordertb>(entity =>
+            {
+                entity.HasKey(e => e.OrderId)
+                    .HasName("PK__Ordertb__C3905BAF42614D3C");
+
+                entity.ToTable("Ordertb");
+
+                entity.Property(e => e.OrderId)
+                    .HasMaxLength(50)
+                    .HasColumnName("OrderID");
+
+                entity.Property(e => e.ArtworkId)
+                    .HasMaxLength(50)
+                    .HasColumnName("ArtworkID");
+
+                entity.Property(e => e.CreateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Total).HasColumnType("decimal(10, 0)");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .HasColumnName("UserID");
+
+                entity.HasOne(d => d.Artwork)
+                    .WithMany(p => p.Ordertbs)
+                    .HasForeignKey(d => d.ArtworkId)
+                    .HasConstraintName("FK__Ordertb__Artwork__6A30C649");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Ordertbs)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK__Ordertb__UserID__6B24EA82");
+            });
+
+            modelBuilder.Entity<Payment>(entity =>
+            {
+                entity.ToTable("Payment");
+
+                entity.Property(e => e.PaymentId)
+                    .HasMaxLength(50)
+                    .HasColumnName("PaymentID");
+
+                entity.Property(e => e.Amount).HasColumnType("decimal(10, 2)");
+
+                entity.Property(e => e.CreateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.OrderId)
+                    .HasMaxLength(50)
+                    .HasColumnName("OrderID");
+
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.Payments)
+                    .HasForeignKey(d => d.OrderId)
+                    .HasConstraintName("FK__Payment__OrderID__6C190EBB");
+            });
+
+            modelBuilder.Entity<PaymentLog>(entity =>
+            {
+                entity.ToTable("Payment_Log");
+
+                entity.Property(e => e.PaymentLogId)
+                    .HasMaxLength(50)
+                    .HasColumnName("PaymentLogID");
+
+                entity.Property(e => e.CreateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.PaymentId)
+                    .HasMaxLength(50)
+                    .HasColumnName("PaymentID");
+
+                entity.Property(e => e.TransactionCode).HasMaxLength(255);
+
+                entity.HasOne(d => d.Payment)
+                    .WithMany(p => p.PaymentLogs)
+                    .HasForeignKey(d => d.PaymentId)
+                    .HasConstraintName("FK__Payment_L__Payme__6D0D32F4");
+            });
+
+            modelBuilder.Entity<Premium>(entity =>
+            {
+                entity.ToTable("Premium");
+
+                entity.Property(e => e.PremiumId)
+                    .HasMaxLength(50)
+                    .HasColumnName("PremiumID");
+
+                entity.Property(e => e.DayExpire)
+                    .HasMaxLength(20)
+                    .HasColumnName("Day_expire");
+
+                entity.Property(e => e.Name).HasMaxLength(20);
+
+                entity.Property(e => e.Price)
+                    .HasColumnType("decimal(10, 2)")
+                    .HasColumnName("price");
+            });
+
+            modelBuilder.Entity<Role>(entity =>
+            {
+                entity.ToTable("Role");
+
+                entity.Property(e => e.RoleId)
+                    .HasMaxLength(50)
+                    .HasColumnName("Role_Id");
+
+                entity.Property(e => e.RoleName).HasMaxLength(20);
+            });
+
+            modelBuilder.Entity<TransactionLog>(entity =>
+            {
+                entity.HasKey(e => e.TransactionId)
+                    .HasName("PK__Transact__55433A4B8FEDA052");
+
+                entity.ToTable("Transaction_Log");
+
+                entity.Property(e => e.TransactionId)
+                    .HasMaxLength(50)
+                    .HasColumnName("TransactionID");
+
+                entity.Property(e => e.CreateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.FeedbackId)
+                    .HasMaxLength(50)
+                    .HasColumnName("FeedbackID");
+
+                entity.Property(e => e.OrderId)
+                    .HasMaxLength(50)
+                    .HasColumnName("OrderID");
+
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.TransactionLogs)
+                    .HasForeignKey(d => d.OrderId)
+                    .HasConstraintName("FK__Transacti__Order__6E01572D");
+            });
+
+            modelBuilder.Entity<Usertb>(entity =>
+            {
+                entity.HasKey(e => e.UserId)
+                    .HasName("PK__Usertb__1788CCAC3E68F33A");
+
+                entity.ToTable("Usertb");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .HasColumnName("UserID");
+
+                entity.Property(e => e.Address).HasMaxLength(255);
+
+                entity.Property(e => e.DateOfBirth).HasColumnType("date");
+
+                entity.Property(e => e.Fullname).HasMaxLength(255);
+
+                entity.Property(e => e.ImageUrl)
+                    .HasMaxLength(255)
+                    .HasColumnName("ImageURL");
+
+                entity.Property(e => e.Noti).HasMaxLength(50);
+
+                entity.Property(e => e.Password).HasMaxLength(255);
+
+                entity.Property(e => e.PhoneNumber).HasMaxLength(20);
+
+                entity.Property(e => e.PremiumId)
+                    .HasMaxLength(50)
+                    .HasColumnName("PremiumID");
+
+                entity.Property(e => e.RoleId)
+                    .HasMaxLength(50)
+                    .HasColumnName("Role_Id");
+
+                entity.Property(e => e.Sex).HasMaxLength(10);
+
+                entity.Property(e => e.Username).HasMaxLength(255);
+
+                entity.HasOne(d => d.Premium)
+                    .WithMany(p => p.Usertbs)
+                    .HasForeignKey(d => d.PremiumId)
+                    .HasConstraintName("FK__Usertb__PremiumI__70DDC3D8");
+
+                entity.HasMany(d => d.ArtworksNavigation)
+                    .WithMany(p => p.Users)
+                    .UsingEntity<Dictionary<string, object>>(
+                        "LikeCollection",
+                        l => l.HasOne<Artwork>().WithMany().HasForeignKey("ArtworkId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Like_Coll__Artwo__66603565"),
+                        r => r.HasOne<Usertb>().WithMany().HasForeignKey("UserId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Like_Coll__UserI__6754599E"),
+                        j =>
+                        {
+                            j.HasKey("UserId", "ArtworkId").HasName("PK__Like_Col__BA8FF64717485A9F");
+
+                            j.ToTable("Like_Collection");
+
+                            j.IndexerProperty<string>("UserId").HasMaxLength(50).HasColumnName("UserID");
+
+                            j.IndexerProperty<string>("ArtworkId").HasMaxLength(50).HasColumnName("ArtworkID");
+                        });
+
+                entity.HasMany(d => d.Roles)
+                    .WithMany(p => p.Users)
+                    .UsingEntity<Dictionary<string, object>>(
+                        "UserRole",
+                        l => l.HasOne<Role>().WithMany().HasForeignKey("RoleId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__User_Role__Role___6EF57B66"),
+                        r => r.HasOne<Usertb>().WithMany().HasForeignKey("UserId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__User_Role__UserI__6FE99F9F"),
+                        j =>
+                        {
+                            j.HasKey("UserId", "RoleId").HasName("PK__User_Rol__BA0867E71A438D40");
+
+                            j.ToTable("User_Role");
+
+                            j.IndexerProperty<string>("UserId").HasMaxLength(50).HasColumnName("UserID");
+
+                            j.IndexerProperty<string>("RoleId").HasMaxLength(50).HasColumnName("Role_Id");
+                        });
+            });
+
+            OnModelCreatingPartial(modelBuilder);
+        }
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+    }
+}
