@@ -94,8 +94,8 @@ namespace AWS.Controllers
 
         [AllowAnonymous]
         [Route("search-by-name")]
-        [HttpPost]
-        public async Task<IActionResult> Search(SearchByFullNameDTO user)
+        [HttpGet]
+        public async Task<IActionResult> Search(string user)
         {
             try
             {

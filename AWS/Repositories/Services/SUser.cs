@@ -55,11 +55,11 @@ namespace ArtWorkShop.Repositories.Services
           
         }
 
-        public async Task<List<Usertb>> SearchByName(SearchByFullNameDTO name)
+        public async Task<List<Usertb>> SearchByName(string name)
         {
             try
             {
-                var list = await this.context.Usertbs.Where(x => x.Username.Contains(name.Username)).ToListAsync();
+                var list = await this.context.Usertbs.Where(x => x.Username.Contains(name)).ToListAsync();
                 if (list != null) return list;
                 throw new Exception("Not Found");
             }
@@ -133,7 +133,7 @@ namespace ArtWorkShop.Repositories.Services
                     r.Username = request.Username;
                     r.Password = BCrypt.Net.BCrypt.HashPassword(request.Password);
                     //r.Email = request.Email;
-                    r.RoleId = "2";
+                    r.RoleId = "1";
                     //r.Status = true;
                     await this.context.Usertbs.AddAsync(r);
                     await this.context.SaveChangesAsync();

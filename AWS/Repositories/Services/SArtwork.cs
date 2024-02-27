@@ -241,6 +241,22 @@ namespace AWS.Repositories.Services
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<List<Artwork>> GetArtworkByUserId(string id)
+        {
+            try
+            {
+                var artworks = await this.cxt.Artworks
+               .Where(a => a.UserId == id)
+               .ToListAsync();
+
+                return artworks;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
 

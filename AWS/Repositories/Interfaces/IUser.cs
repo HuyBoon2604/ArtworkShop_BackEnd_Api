@@ -10,7 +10,7 @@ namespace AWS.Repositories.Interfaces
         Task<List<Usertb>> GetAllUsers();
         Task<Usertb> Registration(RegisterDTO request);
         Task<string> Login(LoginDTO request);
-        Task<List<Usertb>> SearchByName(SearchByFullNameDTO name);
+        Task<List<Usertb>> SearchByName(string name);
         Task<bool> Dellete(RemoveDTO id);
         Task<Usertb> getUserByID(SearchUserID id);
 
