@@ -164,6 +164,31 @@ namespace AWS.Controllers
 
         }
 
+
+        [HttpDelete]
+        [Route("delete-artwork")]
+
+        public async Task<IActionResult> DeleteArtwork(string id)
+        {
+            try
+            {
+                var a = await this.artwork.Dellete(id);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the DeleteArtwork method: {ex}");
+
+                throw;
+            }
+
+        }
+
         [HttpPost]
         [Route("update-artwork")]
 

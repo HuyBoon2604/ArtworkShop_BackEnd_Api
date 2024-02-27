@@ -2,6 +2,7 @@
 using AWS.Repositories.Interfaces;
 using AWS.Repositories.Services;
 using backend_not_clear.DTO.UserDTO;
+using backend_not_clear.DTO.UserDTO.SearchUserID;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -123,6 +124,25 @@ namespace AWS.Controllers
             {
 
                 return BadRequest(ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("get-by-id")]
+        public async Task<IActionResult> GetUserById(SearchUserID id)
+        {
+            try
+            {
+                var user = await this.user.getUserByID(id);
+                if (user == null)
+                {
+                    return NotFound();
+                }
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
     }

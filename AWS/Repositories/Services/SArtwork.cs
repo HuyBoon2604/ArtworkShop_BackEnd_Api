@@ -257,6 +257,26 @@ namespace AWS.Repositories.Services
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<bool> Dellete(string id)
+        {
+            try
+            {
+                if (id != null)
+                {
+                    var obj = await this.cxt.Artworks.Where(x => x.ArtworkId.Equals(id)).FirstOrDefaultAsync();
+                    this.cxt.Artworks.Remove(obj);
+                    await this.cxt.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception($"{ex.Message}");
+            }
+        }
     }
 }
 
