@@ -17,6 +17,19 @@ namespace AWS.Repositories.Services
             this.cxt = cxt;
         }
 
+        public async Task<LikeCollection> GetCollectionByUserId(string userId)
+        {
+            try
+            {
+                var a = await this.cxt.LikeCollections.Where(x => x.UserId.Equals(userId)).FirstOrDefaultAsync();
+                return a;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
         public async Task<LikeCollection> Love(CollectionDTO collection)
         {
             try

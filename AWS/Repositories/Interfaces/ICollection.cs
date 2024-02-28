@@ -7,6 +7,7 @@ namespace AWS.Repositories.Interfaces
     {
         Task<LikeCollection> Love(CollectionDTO ArtworkID);
         Task<bool> UnLove(DeleteCollectionDTO ArtworkID);
+        Task<LikeCollection> GetCollectionByUserId(string userId);
 
     }
 }

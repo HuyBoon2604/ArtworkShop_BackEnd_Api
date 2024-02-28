@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\GAP_KI\\2\\ArtworkShop_BackEnd_Api\\AWS\\AWS.csproj": {}
+    "E:\\GAP_KI\\3\\ArtworkShop_BackEnd_Api\\AWS\\AWS.csproj": {}
   },
   "projects": {
-    "E:\\GAP_KI\\2\\ArtworkShop_BackEnd_Api\\AWS\\AWS.csproj": {
+    "E:\\GAP_KI\\3\\ArtworkShop_BackEnd_Api\\AWS\\AWS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\GAP_KI\\2\\ArtworkShop_BackEnd_Api\\AWS\\AWS.csproj",
+        "projectUniqueName": "E:\\GAP_KI\\3\\ArtworkShop_BackEnd_Api\\AWS\\AWS.csproj",
         "projectName": "AWS",
-        "projectPath": "E:\\GAP_KI\\2\\ArtworkShop_BackEnd_Api\\AWS\\AWS.csproj",
+        "projectPath": "E:\\GAP_KI\\3\\ArtworkShop_BackEnd_Api\\AWS\\AWS.csproj",
         "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
-        "outputPath": "E:\\GAP_KI\\2\\ArtworkShop_BackEnd_Api\\AWS\\obj\\",
+        "outputPath": "E:\\GAP_KI\\3\\ArtworkShop_BackEnd_Api\\AWS\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

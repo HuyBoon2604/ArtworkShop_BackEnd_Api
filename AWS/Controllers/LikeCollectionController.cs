@@ -42,6 +42,30 @@ namespace AWS.Controllers
 
         }
 
+        [HttpGet]
+        [Route("get-collection-by-userid")]
+
+        public async Task<IActionResult> GetCollectionByID(string id)
+        {
+            try
+            {
+                var a = await this.collection.GetCollectionByUserId(id);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the GetCollectionByID method: {ex}");
+
+                throw;
+            }
+
+        }
+
         [HttpDelete]
         [Route("Un-Love")]
 

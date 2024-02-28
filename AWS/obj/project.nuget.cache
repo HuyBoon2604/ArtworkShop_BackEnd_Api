@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "RV0PLIZidnF17nasbVP1+nwbRboaiKET44kVmYEZQ1F5EO0qEc0141Y+yKt85CuSJoGJ+aeVA/aM20urYdiLxA==",
+  "dgSpecHash": "El8L4365mMKXEPJ00ryJ+DprCwTw/glgmJFz8XtPMey2by1n29KPPh7mn66lBhhQ/IT/Oygyt4P3dSHBII52MQ==",
   "success": true,
-  "projectFilePath": "E:\\GAP_KI\\2\\ArtworkShop_BackEnd_Api\\AWS\\AWS.csproj",
+  "projectFilePath": "E:\\GAP_KI\\3\\ArtworkShop_BackEnd_Api\\AWS\\AWS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Asus\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\Asus\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
