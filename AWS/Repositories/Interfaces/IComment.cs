@@ -8,7 +8,9 @@ namespace AWS.Repositories.Interfaces
         Task<List<Comment>> GetComments();  
         Task<Comment> GetCommentByID(string id);
         Task<Comment> GetCommentByUserID(string userID);
-        Task<Comment> GetCommentByArtworkID(string ArtworkID);
+        Task<List<Comment>> GetAllCommentByUserID(string userID);
+        Task<List<Comment>> GetCommentByArtworkID(string ArtworkID);
         Task<Comment> CreateNewComment(NewComment newComment);
     }
+
 }

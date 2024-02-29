@@ -1,4 +1,5 @@
 ﻿using AWS.DTO;
+using AWS.DTO.ArtworkDTO;
 using AWS.Models;
 using AWS.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -14,25 +15,72 @@ namespace AWS.Repositories.Services
             this.cxt = cxt;
         }
 
-        public Task<Comment> CreateNewComment(NewComment newComment)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Comment> GetCommentByArtworkID(string ArtworkID)
+        public async Task<Comment> CreateNewComment(NewComment newComment)
         {
             try
             {
-                var a = await this.cxt.Artworks.Where(x => x.ArtworkId.Equals(ArtworkID)).FirstOrDefaultAsync();
+                var comment = new Comment
+                {
+                    CommentId = "C" + Guid.NewGuid().ToString().Substring(0, 5),
+                    UserId = newComment.UserId,
+                    ArtworkId = newComment.ArtWorkId,
+                    Timestamp = DateTime.Now, // Set current time
+                    Text = newComment.Content
+                };
 
-                var b = await this.cxt.Comments.Where(x => x.CommentId.Equals(a.Comments)).FirstOrDefaultAsync();
+                //Add Genres to the artwork if provided
+               
+
+                cxt.Comments.Add(comment);
+                await cxt.SaveChangesAsync();
+
+                return comment;
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+        }
+
+        public async Task<Comment> GetCommentByUserID(string userID)
+        {
+            try
+            {
+                var b = await this.cxt.Comments.Where(x => x.UserId == userID).FirstOrDefaultAsync();
 
                 return b;
             }
             catch (Exception ex)
             {
+                throw new Exception(ex.Message);
+            }
+        }
 
+        public async Task<List<Comment>> GetAllCommentByUserID(string userID)
+        {
+            try
+            {
+                var b = await this.cxt.Comments.Where(x => x.UserId == userID).ToListAsync();
 
+                return b;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<List<Comment>> GetCommentByArtworkID(string ArtworkID)
+        {
+            try
+            {
+                var b = await this.cxt.Comments.Where(x => x.ArtworkId == ArtworkID).ToListAsync();
+
+                return b;
+            }
+            catch (Exception ex)
+            {
                 throw new Exception(ex.Message);
             }
         }
@@ -53,11 +101,7 @@ namespace AWS.Repositories.Services
             }
         }
 
-        public Task<Comment> GetCommentByUserID(string userID)
-        {
-            throw new NotImplementedException();
-        }
-
+      
         public async Task<List<Comment>> GetComments()
         {
             try
