@@ -66,14 +66,62 @@ namespace AWS.Controllers
 
         }
 
-        [HttpDelete]
-        [Route("Un-Love")]
+        [HttpGet]
+        [Route("get-all-collection-by-userid")]
 
-        public async Task<IActionResult> RemoveToCollection(DeleteCollectionDTO create)
+        public async Task<IActionResult> GetAllCollectionByID(string id)
         {
             try
             {
-                var a = await this.collection.UnLove(create);
+                var a = await this.collection.GetAllCollectionByUserId(id);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the GetAllCollectionByID method: {ex}");
+
+                throw;
+            }
+
+        }
+
+        [HttpGet]
+        [Route("get-all-collection")]
+
+        public async Task<IActionResult> GetAllCollection()
+        {
+            try
+            {
+                var a = await this.collection.GetAllCollection();
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the GetAllCollection method: {ex}");
+
+                throw;
+            }
+
+        }
+
+        [HttpDelete]
+        [Route("Un-Love")]
+
+        public async Task<IActionResult> RemoveToCollection(DeleteCollectionDTO id)
+        {
+            try
+            {
+                var a = await this.collection.UnLove(id);
                 if (a == null)
                 {
                     return NotFound();
