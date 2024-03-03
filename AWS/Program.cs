@@ -92,12 +92,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+//Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseSwaggerUI();
 }
+
+//if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/AWS/swagger.json", "AWSApi v1"));
+//}
 
 app.UseHttpsRedirection();
 

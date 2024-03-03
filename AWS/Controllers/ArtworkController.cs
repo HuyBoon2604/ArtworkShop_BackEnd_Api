@@ -143,11 +143,11 @@ namespace AWS.Controllers
         [HttpPost]
         [Route("create-new-artwork")]
 
-        public async Task<IActionResult> CreateArtwork(CreateArtwork createArtwork)
+        public async Task<IActionResult> CreateArtwork(string userId, CreateArtwork createArtwork)
         {
             try
             {
-                var a = await this.artwork.CreateArtwork(createArtwork);
+                var a = await this.artwork.CreateArtwork(userId, createArtwork);
                 if (a == null)
                 {
                     return NotFound();

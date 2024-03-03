@@ -19,17 +19,21 @@ namespace AWS.Repositories.Services
             cxt = Cxt;
         }
 
-        public async Task<Artwork> CreateArtwork(CreateArtwork createArtwork)
+        public async Task<Artwork> CreateArtwork(string userId, CreateArtwork createArtwork)
         {
             try
             {
+                var user = await cxt.Usertbs.FindAsync(userId);
+
                 var artwork = new Artwork
                 {
+                    UserId = userId,
                     ArtworkId = "A" + Guid.NewGuid().ToString().Substring(0, 5),
                     Title = createArtwork.Title,
                     Description = createArtwork.Description,
                     Price = createArtwork.Price,
                     ImageUrl = createArtwork.ImageUrl,
+                    ImageUrl2 = createArtwork.ImageUrl2,
                     Reason = createArtwork.Reason,
                     Time = DateTime.Now, // Set current time
                     StatusProcessing = false
@@ -277,6 +281,8 @@ namespace AWS.Repositories.Services
                 throw new Exception($"{ex.Message}");
             }
         }
+
+      
     }
 }
 

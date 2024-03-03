@@ -57,6 +57,8 @@ namespace AWS.Models
 
                 entity.Property(e => e.ImageUrl).HasColumnName("ImageURL");
 
+                entity.Property(e => e.ImageUrl2).HasColumnName("ImageURL2");
+
                 entity.Property(e => e.LikeTimes).HasColumnName("Like_times");
 
                 entity.Property(e => e.LinkShare).HasMaxLength(255);

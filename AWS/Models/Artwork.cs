@@ -25,6 +25,7 @@ namespace AWS.Models
         public string? Reason { get; set; }
         public bool? StatusProcessing { get; set; }
         public DateTime? TimeProcessing { get; set; }
+        public string? ImageUrl2 { get; set; }
 
         public virtual Genre? Genre { get; set; }
         public virtual Usertb? User { get; set; }
