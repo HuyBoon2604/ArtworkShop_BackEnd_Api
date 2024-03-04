@@ -143,11 +143,11 @@ namespace AWS.Controllers
         [HttpPost]
         [Route("create-new-artwork")]
 
-        public async Task<IActionResult> CreateArtwork(CreateArtwork createArtwork)
+        public async Task<IActionResult> CreateArtwork(string userId, CreateArtwork createArtwork)
         {
             try
             {
-                var a = await this.artwork.CreateArtwork(createArtwork);
+                var a = await this.artwork.CreateArtwork(userId, createArtwork);
                 if (a == null)
                 {
                     return NotFound();
@@ -212,6 +212,31 @@ namespace AWS.Controllers
             }
 
         }
+
+        [HttpPost]
+        [Route("update-artwork-image2")]
+
+        public async Task<IActionResult> UpdateArtworkImage(string artworkId, UpdateArtWork2 updatedArtwork)
+        {
+            try
+            {
+                var a = await this.artwork.UpdateArtWorkImageUrl2(artworkId, updatedArtwork);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the UpdateArtworkImage method: {ex}");
+
+                throw;
+            }
+
+        }
+
         [HttpPost]
         [Route("update-artwork-proccessing")]
 
