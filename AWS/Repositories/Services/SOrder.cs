@@ -105,25 +105,21 @@ namespace AWS.Repositories.Services
             }
         }
 
-        public async Task<Ordertb> UpdateOrder(string paymentID)
+        public async Task<Ordertb> UpdateOrder(string orderId)
         {
             try
             {
                 // Find the payment associated with the paymentId
-                var payment = await cxt.Payments.FirstOrDefaultAsync(p => p.PaymentId == paymentID);
+                //var payment = await cxt.Payments.FirstOrDefaultAsync(p => p.PaymentId == paymentID);
 
                 // Find the order associated with the payment
-                var order = await cxt.Ordertbs.FirstOrDefaultAsync(o => o.OrderId == payment.OrderId);
+                var order = await cxt.Ordertbs.FirstOrDefaultAsync(o => o.OrderId == orderId);
            
                 // Update order status based on payment status
-                if (payment.Status == true)
-                {
+               
                     order.Status = true; // Assuming true means paid
-                }
-                else
-                {
-                    order.Status = false; // Assuming false means unpaid
-                }
+              
+                
 
                 cxt.Ordertbs.Update(order);
                 await cxt.SaveChangesAsync();
