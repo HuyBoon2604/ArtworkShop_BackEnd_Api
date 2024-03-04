@@ -86,26 +86,39 @@ namespace AWS.Repositories.Services
                 artwork.Description = updatedArtwork.Description ?? artwork.Description;
                 artwork.Price = updatedArtwork.Price.HasValue ? updatedArtwork.Price.Value : artwork.Price;
                 artwork.ImageUrl = updatedArtwork.ImageUrl ?? artwork.ImageUrl;
+                artwork.ImageUrl2 = updatedArtwork.ImageUrl2 ?? artwork.ImageUrl2;
                 artwork.Reason = updatedArtwork.Reason ?? artwork.Reason;
                 artwork.GenreId = updatedArtwork.GenreId ?? artwork.GenreId;
                 artwork.Time = DateTime.Now;
-                // Update the genre if provided
-                //if (updatedArtwork.GenreId == null)
-                //{
-                //    artwork.GenreId = null;
-                //}
-                //if (updatedArtwork.GenreId != null)
-                //{
-                //    var genre = await cxt.Genres.FindAsync(updatedArtwork.GenreId);
-                //    if (genre != null)
-                //    {
-                //        artwork.Genre = genre;
-                //    }
-                //    else
-                //    {
-                //        throw new Exception($"Genre with ID {updatedArtwork.GenreId} not found.");
-                //    }
-                //}
+              
+
+                // Update the artwork in the database
+                cxt.Artworks.Update(artwork);
+                await cxt.SaveChangesAsync();
+
+                return artwork;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("An error occurred while updating artwork.", e);
+            }
+        }
+
+
+        public async Task<Artwork> UpdateArtWorkImageUrl2(string artworkId, UpdateArtWork2 up)
+        {
+            try
+            {
+                // Retrieve the artwork from the database
+                var artwork = await cxt.Artworks.FindAsync(artworkId);
+
+                if (artwork == null)
+                {
+                    throw new Exception($"Artwork with ID {artworkId} not found.");
+                }
+
+                // Update the artwork properties
+                artwork.ImageUrl2 = up.ImageUrl2 ;
 
 
                 // Update the artwork in the database
@@ -282,7 +295,7 @@ namespace AWS.Repositories.Services
             }
         }
 
-      
+       
     }
 }
 

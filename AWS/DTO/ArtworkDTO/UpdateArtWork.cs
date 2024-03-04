@@ -6,6 +6,7 @@
         public string Description { get; set; }
         public decimal? Price { get; set; }
         public string ImageUrl { get; set; }
+        public string ImageUrl2 { get; set; }
         public string Reason { get; set; }
         public string GenreId { get; set; }
       
