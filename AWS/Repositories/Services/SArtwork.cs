@@ -118,7 +118,7 @@ namespace AWS.Repositories.Services
                 }
 
                 // Update the artwork properties
-                artwork.ImageUrl2 = up.ImageUrl2 ;
+                artwork.ImageUrl = up.ImageUrl;
 
 
                 // Update the artwork in the database

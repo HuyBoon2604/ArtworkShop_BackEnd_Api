@@ -214,7 +214,7 @@ namespace AWS.Controllers
         }
 
         [HttpPost]
-        [Route("update-artwork-image2")]
+        [Route("update-artwork-image")]
 
         public async Task<IActionResult> UpdateArtworkImage(string artworkId, UpdateArtWork2 updatedArtwork)
         {

@@ -2,7 +2,7 @@
 {
     public class UpdateArtWork2
     {
-        public string ImageUrl2 { get; set; }
+        public string ImageUrl { get; set; }
 
     }
 }
