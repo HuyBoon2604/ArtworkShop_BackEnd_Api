@@ -7,15 +7,11 @@ namespace backend_not_clear.DTO.UserDTO
         //public string UserID { get; set; } = string.Empty;
         public string? imgURL { get; set; }
         public string? fullName { get; set; } = string.Empty;
-        [EmailAddress]
-        public string? Email { get; set; }
-        public string? address { get; set; }
-        [Phone]
-        public string? Phone { get; set; }
-        public string? Bank { get; set; }
-        public decimal? Money { get; set; }
 
         public string? gender { get; set; }
+        [Phone]
+        public string? Phone { get; set; }
+        public decimal? Money { get; set; }
         public DateTime? dateOfBird { get; set; }
         //public string? RoleID { get; set; }
         public string? Username { get; set; }
