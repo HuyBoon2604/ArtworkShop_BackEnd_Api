@@ -20,12 +20,12 @@ namespace AWS.Models
         public virtual DbSet<Comment> Comments { get; set; } = null!;
         public virtual DbSet<Genre> Genres { get; set; } = null!;
         public virtual DbSet<LikeCollection> LikeCollections { get; set; } = null!;
-        public virtual DbSet<OrderPremium> OrderPremium { get; set; } = null!;
+        public virtual DbSet<OrderPremium> OrderPremia { get; set; } = null!;
         public virtual DbSet<OrderPremiumLog> OrderPremiumLogs { get; set; } = null!;
         public virtual DbSet<Ordertb> Ordertbs { get; set; } = null!;
         public virtual DbSet<Payment> Payments { get; set; } = null!;
         public virtual DbSet<PaymentLog> PaymentLogs { get; set; } = null!;
-        public virtual DbSet<Premium> Premium { get; set; } = null!;
+        public virtual DbSet<Premium> Premia { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
         public virtual DbSet<TransactionLog> TransactionLogs { get; set; } = null!;
         public virtual DbSet<Usertb> Usertbs { get; set; } = null!;
@@ -363,6 +363,8 @@ namespace AWS.Models
                 entity.Property(e => e.ImageUrl)
                     .HasMaxLength(255)
                     .HasColumnName("ImageURL");
+
+                entity.Property(e => e.Money).HasColumnType("decimal(18, 0)");
 
                 entity.Property(e => e.Noti).HasMaxLength(50);
 

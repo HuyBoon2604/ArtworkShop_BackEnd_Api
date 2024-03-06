@@ -13,6 +13,7 @@ namespace backend_not_clear.DTO.UserDTO
         [Phone]
         public string? Phone { get; set; }
         public string? Bank { get; set; }
+        public decimal? Money { get; set; }
 
         public string? gender { get; set; }
         public DateTime? dateOfBird { get; set; }

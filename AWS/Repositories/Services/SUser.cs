@@ -208,7 +208,7 @@ namespace ArtWorkShop.Repositories.Services
                 existingUser.PhoneNumber = user.Phone ?? existingUser.PhoneNumber;
                 existingUser.ImageUrl = user.imgURL ?? existingUser.ImageUrl;
                 existingUser.DateOfBirth = user.dateOfBird ?? existingUser.DateOfBirth;
-
+                existingUser.Money = user.Money ?? existingUser.Money;  
                 context.Usertbs.Update(existingUser);
                 await context.SaveChangesAsync();
                 return existingUser;

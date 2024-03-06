@@ -25,13 +25,13 @@ namespace AWS.Repositories.Services
                 add.OrderDate = DateTime.Now;
                 add.Status = false;
 
-                var premium = await cxt.Premium.FindAsync(OrderPremiumId);
+                var premium = await cxt.OrderPremia.FindAsync(OrderPremiumId);
                 if (premium != null)
                 {
                     //add.Total = premium.Price; // Gán giá trị Price từ Artwork cho đơn hàng
                 }
 
-                await this.cxt.OrderPremium.AddAsync(add);
+                await this.cxt.OrderPremia.AddAsync(add);
                 await this.cxt.SaveChangesAsync();
                 OrderPremium OrderPremiumID = null;
                 return OrderPremiumID ;
@@ -46,7 +46,7 @@ namespace AWS.Repositories.Services
         {
             try
             {
-                var list = await this.cxt.Premium.ToListAsync();
+                var list = await this.cxt.Premia.ToListAsync();
                 return list;
             }
             catch (Exception ex)
@@ -60,7 +60,7 @@ namespace AWS.Repositories.Services
         {
             try
             {
-                var a = await this.cxt.OrderPremium
+                var a = await this.cxt.OrderPremia
             .Where(x => x.OrderPremiumId.Equals(OrderPremiumId))
             .FirstOrDefaultAsync();
 
