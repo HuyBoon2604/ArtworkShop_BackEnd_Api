@@ -201,7 +201,6 @@ namespace ArtWorkShop.Repositories.Services
                 //if (userWithSameUsername != null)
                 //    throw new Exception("Dupplicate Username");
 
-                existingUser.Username = user.Username ?? existingUser.Username;
                 existingUser.Fullname = user.fullName ?? existingUser.Fullname;
                 existingUser.Sex = user.gender ?? existingUser.Sex;
                 existingUser.PhoneNumber = user.Phone ?? existingUser.PhoneNumber;

@@ -14,6 +14,6 @@ namespace backend_not_clear.DTO.UserDTO
         public decimal? Money { get; set; }
         public DateTime? dateOfBird { get; set; }
         //public string? RoleID { get; set; }
-        public string? Username { get; set; }
+     
     }
 }

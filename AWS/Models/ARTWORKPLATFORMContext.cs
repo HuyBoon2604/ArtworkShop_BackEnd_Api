@@ -26,6 +26,7 @@ namespace AWS.Models
         public virtual DbSet<Payment> Payments { get; set; } = null!;
         public virtual DbSet<PaymentLog> PaymentLogs { get; set; } = null!;
         public virtual DbSet<Premium> Premia { get; set; } = null!;
+        public virtual DbSet<Report> Reports { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
         public virtual DbSet<TransactionLog> TransactionLogs { get; set; } = null!;
         public virtual DbSet<Usertb> Usertbs { get; set; } = null!;
@@ -303,6 +304,37 @@ namespace AWS.Models
                 entity.Property(e => e.Price)
                     .HasColumnType("decimal(10, 2)")
                     .HasColumnName("price");
+            });
+
+            modelBuilder.Entity<Report>(entity =>
+            {
+                entity.ToTable("Report");
+
+                entity.Property(e => e.ReportId)
+                    .HasMaxLength(50)
+                    .HasColumnName("ReportID");
+
+                entity.Property(e => e.ArtworkId)
+                    .HasMaxLength(50)
+                    .HasColumnName("ArtworkID");
+
+                entity.Property(e => e.Description).HasMaxLength(255);
+
+                entity.Property(e => e.ReportDate).HasColumnType("datetime");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(50)
+                    .HasColumnName("UserID");
+
+                entity.HasOne(d => d.Artwork)
+                    .WithMany(p => p.Reports)
+                    .HasForeignKey(d => d.ArtworkId)
+                    .HasConstraintName("FK__Report__ArtworkI__02FC7413");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Reports)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK__Report__UserID__03F0984C");
             });
 
             modelBuilder.Entity<Role>(entity =>

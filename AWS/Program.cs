@@ -42,6 +42,7 @@ builder.Services.AddScoped<IPayment, SPayment>();
 builder.Services.AddScoped<IPremium, SPremium>();
 builder.Services.AddScoped<ICollection, SCollection>();
 builder.Services.AddScoped<IComment, SComment>();
+builder.Services.AddScoped<IReport, SReport>();
 
 
 builder.Services.AddSwaggerGen(option =>

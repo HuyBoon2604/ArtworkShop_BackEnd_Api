@@ -78,7 +78,7 @@ namespace AWS.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [Route("update")]
-        [HttpPut]
+        [HttpPost]
         public async Task<IActionResult> Update(string id, UpdateDTO user)
         {
             try

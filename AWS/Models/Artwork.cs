@@ -10,6 +10,7 @@ namespace AWS.Models
             Comments = new HashSet<Comment>();
             LikeCollections = new HashSet<LikeCollection>();
             Ordertbs = new HashSet<Ordertb>();
+            Reports = new HashSet<Report>();
         }
 
         public string ArtworkId { get; set; } = null!;
@@ -32,5 +33,6 @@ namespace AWS.Models
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<LikeCollection> LikeCollections { get; set; }
         public virtual ICollection<Ordertb> Ordertbs { get; set; }
+        public virtual ICollection<Report> Reports { get; set; }
     }
 }
