@@ -23,24 +23,27 @@ namespace AWS.Repositories.Services
         {
             try
             {
+                 
                 var user = await cxt.Usertbs.FindAsync(userId);
 
-                var artwork = new Artwork
+                if (user.StatusPost == true || user.PremiumId != null)
                 {
-                    UserId = userId,
-                    ArtworkId = "A" + Guid.NewGuid().ToString().Substring(0, 5),
-                    Title = createArtwork.Title,
-                    Description = createArtwork.Description,
-                    Price = createArtwork.Price,
-                    ImageUrl = createArtwork.ImageUrl,
-                    ImageUrl2 = createArtwork.ImageUrl2,
-                    Reason = createArtwork.Reason,
-                    Time = DateTime.Now, // Set current time
-                    StatusProcessing = false
-                };
+                    var artwork = new Artwork
+                    {
+                        UserId = userId,
+                        ArtworkId = "A" + Guid.NewGuid().ToString().Substring(0, 5),
+                        Title = createArtwork.Title,
+                        Description = createArtwork.Description,
+                        Price = createArtwork.Price,
+                        ImageUrl = createArtwork.ImageUrl,
+                        ImageUrl2 = createArtwork.ImageUrl2,
+                        Reason = createArtwork.Reason,
+                        Time = DateTime.Now, // Set current time
+                        StatusProcessing = false
+                    };
 
-                //Add Genres to the artwork if provided
-                if (createArtwork.Genres != null && createArtwork.Genres.Any())
+                    //Add Genres to the artwork if provided
+                    if (createArtwork.Genres != null && createArtwork.Genres.Any())
                     {
                         foreach (var genreDto in createArtwork.Genres)
                         {
@@ -56,11 +59,12 @@ namespace AWS.Repositories.Services
                             }
                         }
                     }
+                    cxt.Artworks.Add(artwork);
+                    await cxt.SaveChangesAsync();
 
-                cxt.Artworks.Add(artwork);
-                await cxt.SaveChangesAsync();
-
-                return artwork;
+                    return artwork;
+                }
+                return null; 
             }
             catch (Exception e)
             {

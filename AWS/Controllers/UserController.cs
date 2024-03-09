@@ -71,7 +71,7 @@ namespace AWS.Controllers
             catch (Exception ex)
             {
                
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -89,7 +89,24 @@ namespace AWS.Controllers
             catch (Exception ex)
             {
 
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [AllowAnonymous]
+        [Route("update-status-post")]
+        [HttpPost]
+        public async Task<IActionResult> UpdateStatusPost(string id)
+        {
+            try
+            {
+                var a = await this.user.UpdateStatusPost(id);
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
             }
         }
 
@@ -106,7 +123,7 @@ namespace AWS.Controllers
             catch (Exception ex)
             {
 
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -123,7 +140,7 @@ namespace AWS.Controllers
             catch (Exception ex)
             {
 
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 

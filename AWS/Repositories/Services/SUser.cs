@@ -1,4 +1,5 @@
-﻿using AWS.Models;
+﻿using AWS.DTO;
+using AWS.Models;
 using AWS.Repositories.Interfaces;
 using backend_not_clear.DTO.UserDTO;
 using backend_not_clear.DTO.UserDTO.SearchUserID;
@@ -217,6 +218,22 @@ namespace ArtWorkShop.Repositories.Services
             {
                 throw new Exception($"{ex.Message}");
             }
+        }
+
+        public async Task<Usertb> UpdateStatusPost(string userID)
+        {
+            try
+            {
+                var x = await this.context.Usertbs.Where(a => a.UserId == userID).FirstOrDefaultAsync();
+                x.StatusPost = false;
+                return x;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
     }
 }

@@ -414,6 +414,8 @@ namespace AWS.Models
 
                 entity.Property(e => e.Sex).HasMaxLength(10);
 
+                entity.Property(e => e.StatusPost).HasColumnName("Status_Post");
+
                 entity.Property(e => e.Username).HasMaxLength(255);
 
                 entity.HasOne(d => d.Premium)

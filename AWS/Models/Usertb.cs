@@ -28,6 +28,7 @@ namespace AWS.Models
         public string? Noti { get; set; }
         public string? PremiumId { get; set; }
         public decimal? Money { get; set; }
+        public bool? StatusPost { get; set; }
 
         public virtual Premium? Premium { get; set; }
         public virtual ICollection<Artwork> Artworks { get; set; }
