@@ -43,6 +43,8 @@ builder.Services.AddScoped<IPremium, SPremium>();
 builder.Services.AddScoped<ICollection, SCollection>();
 builder.Services.AddScoped<IComment, SComment>();
 builder.Services.AddScoped<IReport, SReport>();
+builder.Services.AddScoped<IOrderPremium, SOrderPremium>();
+builder.Services.AddScoped<IOrderPremiumLog, SOrderPremiumLog>();
 
 
 builder.Services.AddSwaggerGen(option =>

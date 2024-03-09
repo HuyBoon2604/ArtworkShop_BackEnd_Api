@@ -12,7 +12,7 @@ namespace backend_not_clear.DTO.UserDTO
         [Phone]
         public string? Phone { get; set; }
         public decimal? Money { get; set; }
-        public DateTime? dateOfBird { get; set; }
+        public DateTimeOffset? dateOfBird { get; set; }
         //public string? RoleID { get; set; }
      
     }

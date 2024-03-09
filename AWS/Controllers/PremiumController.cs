@@ -39,53 +39,7 @@ namespace AWS.Controllers
             }
 
         }
-        [HttpPost]
-        [Route("create-new-order-premium")]
-
-        public async Task<IActionResult> CreateOrderPremium(string id)
-        {
-            try
-            {
-                var a = await this.premium.CreateNewOrderPremium(id);
-                if (a == null)
-                {
-                    return NotFound();
-                }
-                return Ok(a);
-            }
-            catch (Exception ex)
-            {
-
-                Console.WriteLine($"An error occurred in the CreatePayment method: {ex}");
-
-                throw;
-            }
-
-        }
-
-        [HttpGet]
-        [Route("get-premium-order-by-order-id")]
-
-        public async Task<IActionResult> GetOrderPremium(string id)
-        {
-            try
-            {
-                var a = await this.premium.GetOrderPremium(id);
-                if (a == null)
-                {
-                    return NotFound();
-                }
-                return Ok(a);
-            }
-            catch (Exception ex)
-            {
-
-                Console.WriteLine($"An error occurred in the GetPayement method: {ex}");
-
-                throw;
-            }
-
-        }
+      
     }
 }
 

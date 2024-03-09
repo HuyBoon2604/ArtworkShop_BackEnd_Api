@@ -206,7 +206,7 @@ namespace ArtWorkShop.Repositories.Services
                 existingUser.Sex = user.gender ?? existingUser.Sex;
                 existingUser.PhoneNumber = user.Phone ?? existingUser.PhoneNumber;
                 existingUser.ImageUrl = user.imgURL ?? existingUser.ImageUrl;
-                existingUser.DateOfBirth = user.dateOfBird ?? existingUser.DateOfBirth;
+                //existingUser.DateOfBirth = user.dateOfBird;
                 existingUser.Money = user.Money ?? existingUser.Money;  
 
                 context.Usertbs.Update(existingUser);
