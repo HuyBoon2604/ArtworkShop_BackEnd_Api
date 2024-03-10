@@ -7,6 +7,7 @@ namespace AWS.Repositories.Interfaces
     {
         Task<List<OrderPremium>> GetAll();
         Task<OrderPremium> GetByID(string id); 
+        Task<OrderPremium> UpdateStatus(string OrderPreId); 
         Task<OrderPremium> AddNewOrder(CreateOrderPremiumDTO create); 
 
         

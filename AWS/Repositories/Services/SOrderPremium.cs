@@ -71,5 +71,21 @@ namespace AWS.Repositories.Services
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<OrderPremium> UpdateStatus(string OrderPreId)
+        {
+            try
+            {
+                var a = await this.cxt.OrderPremia.Where(x => x.OrderPremiumId.Equals(OrderPreId)).FirstOrDefaultAsync();
+                a.Status = true;
+                return a;
+            }
+            catch (Exception ex)
+            {
+
+
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

@@ -57,5 +57,37 @@ namespace AWS.Repositories.Services
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<OrderPremiumLog> GetPaymentLogByOrderPreId(string OrPreId)
+        {
+            try
+            {
+                var log = await this.cxt.OrderPremiumLogs.Where(x => x.OrderPremiumId == OrPreId).FirstOrDefaultAsync();
+                if (log != null)
+                {
+                    return log;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<OrderPremiumLog> UpdateStatusSuccess(string LogId)
+        {
+            try
+            {
+                var log = await this.cxt.OrderPremiumLogs.Where(x => x.OrderPremiumLogId == LogId).FirstOrDefaultAsync();
+                log.Status = true;
+                return log;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

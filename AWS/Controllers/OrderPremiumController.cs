@@ -40,6 +40,30 @@ namespace AWS.Controllers
 
         }
 
+        [HttpPost]
+        [Route("update-status")]
+
+        public async Task<IActionResult> UpdateStatus(string id)
+        {
+            try
+            {
+                var a = await this.orderPremium.UpdateStatus(id);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the UpdateStatus method: {ex}");
+
+                throw;
+            }
+
+        }
+
         [HttpGet]
         [Route("get-order-premeium-by-id")]
 

@@ -172,41 +172,17 @@ namespace ArtWorkShop.Repositories.Services
         {
             try
             {
-                //var r = await this.context.Usertbs.Where(x => user.UserID.Equals(x.UserId))
-                //                                .FirstOrDefaultAsync();
-                //var userS = await this.context.Usertbs.Where(x => x.Equals(user.Username)).FirstOrDefaultAsync();
-                //if (userS != null)
-                //    throw new Exception("Duplicate UserName please try another one.");
-                //if (user != null && r != null)
-                //{
-                //    r.Username = user.Username ?? r.Username;
-                //    r.Fullname = user.fullName ?? r.Fullname;
-                //    r.Address = user.address ?? r.Address;
-                //    //r.Email = user.Email ?? r.Email;
-                //    r.Sex = user.gender ?? r.Sex;
-                //    r.PhoneNumber = user.Phone ?? r.PhoneNumber;
-                //    //r.RoleId = user.RoleID ?? r.RoleId;
-                //    r.BankNumber = user.Bank ?? r.BankNumber;
-                //    r.ImageUrl = user.imgURL ?? r.ImageUrl;
-                //    r.DateOfBirth = user.dateOfBird ?? r.DateOfBirth;
-                //    this.context.Usertbs.Update(r);
-                //    await this.context.SaveChangesAsync();
-                //    return r;
-                //}
-                //return r;
                 var existingUser = await context.Usertbs.FirstOrDefaultAsync(x => x.UserId == id);
                 if (existingUser == null)
                     throw new Exception("USER IS NOT FOUND");
 
-                //var userWithSameUsername = await context.Usertbs.FirstOrDefaultAsync(x => x.Username == user.Username && x.UserId != id);
-                //if (userWithSameUsername != null)
-                //    throw new Exception("Dupplicate Username");
+      
 
                 existingUser.Fullname = user.fullName ?? existingUser.Fullname;
                 existingUser.Sex = user.gender ?? existingUser.Sex;
                 existingUser.PhoneNumber = user.Phone ?? existingUser.PhoneNumber;
                 existingUser.ImageUrl = user.imgURL ?? existingUser.ImageUrl;
-                //existingUser.DateOfBirth = user.dateOfBird;
+                existingUser.DateOfBirth = user.dateOfBird;
                 existingUser.Money = user.Money ?? existingUser.Money;  
 
                 context.Usertbs.Update(existingUser);

@@ -39,6 +39,55 @@ namespace AWS.Controllers
 
         }
 
+
+        [HttpGet]
+        [Route("get-OrderPre-By-LogId")]
+
+        public async Task<IActionResult> GetOrderPreByLog(string id)
+        {
+            try
+            {
+                var a = await this.orderPremiumLog.GetPaymentLogByOrderPreId(id);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the GetOrderPreByLog method: {ex}");
+
+                throw;
+            }
+
+        }
+
+        [HttpPost]
+        [Route("Update-Status")]
+
+        public async Task<IActionResult> UpdateStatus(string id)
+        {
+            try
+            {
+                var a = await this.orderPremiumLog.UpdateStatusSuccess(id);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the UpdateStatus method: {ex}");
+
+                throw;
+            }
+
+        }
+
         [HttpPost]
         [Route("create-new-Premium-log")]
 
