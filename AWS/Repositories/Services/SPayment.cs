@@ -28,6 +28,7 @@ namespace AWS.Repositories.Services
                     payment.CreateDate = DateTime.Now;
                     payment.Amount = order.Total;
                     payment.Status = false;
+                    payment.StatusCancle = true;
                     await this.context.Payments.AddAsync(payment);
                     await this.context.SaveChangesAsync();
                     return payment;
