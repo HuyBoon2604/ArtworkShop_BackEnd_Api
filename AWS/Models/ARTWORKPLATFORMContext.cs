@@ -138,7 +138,7 @@ namespace AWS.Models
             modelBuilder.Entity<LikeCollection>(entity =>
             {
                 entity.HasKey(e => new { e.UserId, e.ArtworkId })
-                    .HasName("PK__Like_Col__BA8FF6473C3C3DB5");
+                    .HasName("PK__Like_Col__BA8FF647884725C5");
 
                 entity.ToTable("Like_Collection");
 
@@ -221,7 +221,7 @@ namespace AWS.Models
             modelBuilder.Entity<Ordertb>(entity =>
             {
                 entity.HasKey(e => e.OrderId)
-                    .HasName("PK__Ordertb__C3905BAF4516B4D5");
+                    .HasName("PK__Ordertb__C3905BAF2BF1EB7E");
 
                 entity.ToTable("Ordertb");
 
@@ -364,7 +364,7 @@ namespace AWS.Models
             modelBuilder.Entity<TransactionLog>(entity =>
             {
                 entity.HasKey(e => e.TransactionId)
-                    .HasName("PK__Transact__55433A4B9E7B022E");
+                    .HasName("PK__Transact__55433A4B8F751F86");
 
                 entity.ToTable("Transaction_Log");
 
@@ -391,7 +391,7 @@ namespace AWS.Models
             modelBuilder.Entity<Usertb>(entity =>
             {
                 entity.HasKey(e => e.UserId)
-                    .HasName("PK__Usertb__1788CCACAF2DE8E7");
+                    .HasName("PK__Usertb__1788CCAC0CB42369");
 
                 entity.ToTable("Usertb");
 
@@ -401,7 +401,7 @@ namespace AWS.Models
 
                 entity.Property(e => e.Address).HasMaxLength(255);
 
-                entity.Property(e => e.DateOfBirth).HasColumnType("date");
+                entity.Property(e => e.DateOfBirth).HasMaxLength(255);
 
                 entity.Property(e => e.Fullname).HasMaxLength(255);
 
@@ -442,7 +442,7 @@ namespace AWS.Models
                         r => r.HasOne<Usertb>().WithMany().HasForeignKey("UserId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__User_Role__UserI__74AE54BC"),
                         j =>
                         {
-                            j.HasKey("UserId", "RoleId").HasName("PK__User_Rol__BA0867E71B263247");
+                            j.HasKey("UserId", "RoleId").HasName("PK__User_Rol__BA0867E759B07C2B");
 
                             j.ToTable("User_Role");
 

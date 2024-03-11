@@ -176,7 +176,6 @@ namespace ArtWorkShop.Repositories.Services
                 if (existingUser == null)
                     throw new Exception("USER IS NOT FOUND");
 
-      
 
                 existingUser.Fullname = user.fullName ?? existingUser.Fullname;
                 existingUser.Sex = user.gender ?? existingUser.Sex;

@@ -13,7 +13,7 @@ namespace backend_not_clear.DTO.UserDTO
 
         [Phone]
         public string? Phone { get; set; }
-        public DateOnly? dateOfBird { get; set; }
+        public string? dateOfBird { get; set; }
         //public string? RoleID { get; set; }
      
     }
