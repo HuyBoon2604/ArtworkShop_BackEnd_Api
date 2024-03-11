@@ -9,10 +9,11 @@ namespace backend_not_clear.DTO.UserDTO
         public string? fullName { get; set; } = string.Empty;
 
         public string? gender { get; set; }
+        public string? Address { get; set; }
+
         [Phone]
         public string? Phone { get; set; }
-        public decimal? Money { get; set; }
-        public DateTime? dateOfBird { get; set; }
+        public DateOnly? dateOfBird { get; set; }
         //public string? RoleID { get; set; }
      
     }

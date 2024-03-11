@@ -135,7 +135,7 @@ namespace ArtWorkShop.Repositories.Services
                     r.Password = BCrypt.Net.BCrypt.HashPassword(request.Password);
                     //r.Email = request.Email;
                     r.RoleId = "1";
-                    //r.Status = true;
+                    r.StatusPost = true;
                     await this.context.Usertbs.AddAsync(r);
                     await this.context.SaveChangesAsync();
                     return r;
@@ -181,9 +181,9 @@ namespace ArtWorkShop.Repositories.Services
                 existingUser.Fullname = user.fullName ?? existingUser.Fullname;
                 existingUser.Sex = user.gender ?? existingUser.Sex;
                 existingUser.PhoneNumber = user.Phone ?? existingUser.PhoneNumber;
+                existingUser.Address = user.Address ?? existingUser.Address;
                 existingUser.ImageUrl = user.imgURL ?? existingUser.ImageUrl;
-                existingUser.DateOfBirth = user.dateOfBird;
-                existingUser.Money = user.Money ?? existingUser.Money;  
+                existingUser.DateOfBirth = user.dateOfBird ?? existingUser.DateOfBirth;
 
                 context.Usertbs.Update(existingUser);
                 await context.SaveChangesAsync();
