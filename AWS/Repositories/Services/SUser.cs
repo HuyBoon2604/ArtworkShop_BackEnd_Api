@@ -201,6 +201,8 @@ namespace ArtWorkShop.Repositories.Services
             {
                 var x = await this.context.Usertbs.Where(a => a.UserId == userID).FirstOrDefaultAsync();
                 x.StatusPost = false;
+                this.context.Usertbs.Update(x);
+                await this.context.SaveChangesAsync();
                 return x;
             }
             catch (Exception)
