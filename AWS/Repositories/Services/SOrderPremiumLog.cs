@@ -101,6 +101,8 @@ namespace AWS.Repositories.Services
             {
                 var log = await this.cxt.OrderPremiumLogs.Where(x => x.OrderPremiumLogId == LogId).FirstOrDefaultAsync();
                 log.Status = true;
+                this.cxt.OrderPremiumLogs.Update(log);
+                await this.cxt.SaveChangesAsync();
                 return log;
 
             }

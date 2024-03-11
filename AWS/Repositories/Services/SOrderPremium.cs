@@ -82,6 +82,7 @@ namespace AWS.Repositories.Services
             try
             {
                 var a = await this.cxt.OrderPremia.Where(x => x.OrderPremiumId.Equals(id)).FirstOrDefaultAsync();
+
                 return a;
             }
             catch (Exception ex)
@@ -98,6 +99,8 @@ namespace AWS.Repositories.Services
             {
                 var a = await this.cxt.OrderPremia.Where(x => x.OrderPremiumId.Equals(OrderPreId)).FirstOrDefaultAsync();
                 a.Status = true;
+                this.cxt.OrderPremia.Update(a);
+                await this.cxt.SaveChangesAsync();
                 return a;
             }
             catch (Exception ex)
