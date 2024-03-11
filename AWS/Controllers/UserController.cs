@@ -1,4 +1,5 @@
 ﻿
+using AWS.DTO;
 using AWS.Repositories.Interfaces;
 using AWS.Repositories.Services;
 using backend_not_clear.DTO.UserDTO;
@@ -84,6 +85,23 @@ namespace AWS.Controllers
             try
             {
                 var a = await this.user.Update(id,user);
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [AllowAnonymous]
+        [Route("update-money")]
+        [HttpPost]
+        public async Task<IActionResult> UpdateMoney(string id, UpdateMoneyuserDTO user)
+        {
+            try
+            {
+                var a = await this.user.UpdateMoney(id, user);
                 return Ok(a);
             }
             catch (Exception ex)

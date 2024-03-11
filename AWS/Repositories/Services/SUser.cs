@@ -212,5 +212,22 @@ namespace ArtWorkShop.Repositories.Services
             }
 
         }
+
+        public async Task<Usertb> UpdateMoney(string id, UpdateMoneyuserDTO user)
+        {
+            try
+            {
+                var x = await this.context.Usertbs.Where(a => a.UserId == id).FirstOrDefaultAsync();
+                x.Money = user.Money;
+                this.context.Usertbs.Update(x);
+                await this.context.SaveChangesAsync();
+                return x;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

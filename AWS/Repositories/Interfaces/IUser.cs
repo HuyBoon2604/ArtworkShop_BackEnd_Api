@@ -17,5 +17,7 @@ namespace AWS.Repositories.Interfaces
         Task<Usertb> UpdateStatusPost(string userID);
 
         Task<Usertb> Update(string id, UpdateDTO user);
+        Task<Usertb> UpdateMoney(string id, UpdateMoneyuserDTO user);
+
     }
 }
