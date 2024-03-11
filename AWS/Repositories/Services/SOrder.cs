@@ -26,6 +26,7 @@ namespace AWS.Repositories.Services
                 add.UserId = order.UserID;
                 add.CreateDate = order.CreateDate;
                 add.Status = false;
+                add.StatusCancel = true;
 
                 var artwork = await cxt.Artworks.FindAsync(order.ArtwokID);
                 if (artwork != null)
@@ -43,6 +44,27 @@ namespace AWS.Repositories.Services
                 throw new Exception(ex.Message);
             }
      
+        }
+
+        public async Task<Ordertb> DeleteOrder(string orderId)
+        {
+            try
+            {
+                if (orderId != null)
+                {
+                    var obj = await this.cxt.Ordertbs.Where(x => x.OrderId.Equals(orderId)).FirstOrDefaultAsync();
+                    obj.StatusCancel = false;
+                    this.cxt.Ordertbs.Update(obj);
+                    await this.cxt.SaveChangesAsync();
+                    return obj;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception($"{ex.Message}");
+            }
         }
 
         public async Task<List<Ordertb>> GetAll()

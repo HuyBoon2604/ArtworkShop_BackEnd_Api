@@ -41,6 +41,26 @@ namespace AWS.Repositories.Services
             }
         }
 
+        public async Task<bool> DeleteOrPreLog(string OrderPreLogId)
+        {
+            try
+            {
+                if (OrderPreLogId != null)
+                {
+                    var obj = await this.cxt.OrderPremiumLogs.Where(x => x.OrderPremiumLogId.Equals(OrderPreLogId)).FirstOrDefaultAsync();
+                    this.cxt.OrderPremiumLogs.Remove(obj);
+                    await this.cxt.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception($"{ex.Message}");
+            }
+        }
+
         public async Task<List<OrderPremiumLog>> GetPaymentList()
         {
             try

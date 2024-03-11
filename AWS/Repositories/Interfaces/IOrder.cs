@@ -12,5 +12,6 @@ namespace AWS.Repositories.Interfaces
         Task<List<Ordertb>> GetAll();
         Task<Ordertb> CreateNewOrder(CreateOrderDTO order);
         Task<Ordertb> UpdateOrder(string orderId);
+        Task<Ordertb> DeleteOrder(string orderId);
     }
 }

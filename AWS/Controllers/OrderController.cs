@@ -40,6 +40,30 @@ namespace AWS.Controllers
 
         }
 
+        [HttpPost]
+        [Route("delete-order")]
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            try
+            {
+                var a = await this.order.DeleteOrder(id);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the Delete method: {ex}");
+
+                throw;
+            }
+
+        }
+
         [HttpGet]
         [Route("get-by-id")]
 

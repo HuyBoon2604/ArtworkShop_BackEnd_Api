@@ -40,6 +40,31 @@ namespace AWS.Controllers
 
         }
 
+
+        [HttpPost]
+        [Route("delete-payment")]
+
+        public async Task<IActionResult> DeletePayment(string id)
+        {
+            try
+            {
+                var a = await this.payment.DeletePayment(id);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the DeletePayment method: {ex}");
+
+                throw;
+            }
+
+        }
+
         [HttpPost]
         [Route("update-payment")]
 

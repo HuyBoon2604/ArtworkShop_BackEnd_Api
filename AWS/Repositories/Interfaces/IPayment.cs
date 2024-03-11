@@ -10,5 +10,7 @@ namespace AWS.Repositories.Interfaces
         Task<Payment> GetPaymentSuccess(string OrderId);
         Task<Payment> GetPayment(string OrderId);
         Task<List<Payment>> GetPaymentList();
+        Task<Payment> DeletePayment(string paymentID);
+
     }
 }

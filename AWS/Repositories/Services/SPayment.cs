@@ -40,6 +40,27 @@ namespace AWS.Repositories.Services
             }
         }
 
+        public async Task<Payment> DeletePayment(string paymentID)
+        {
+            try
+            {
+                if (paymentID != null)
+                {
+                    var obj = await this.context.Payments.Where(x => x.PaymentId.Equals(paymentID)).FirstOrDefaultAsync();
+                    obj.StatusCancle = false;   
+                    this.context.Payments.Update(obj);
+                    await this.context.SaveChangesAsync();
+                    return obj;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception($"{ex.Message}");
+            }
+        }
+
         public async Task<Payment> GetPayment(string OrderId)
         {
             try

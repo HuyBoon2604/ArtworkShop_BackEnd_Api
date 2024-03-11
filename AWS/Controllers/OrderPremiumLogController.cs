@@ -39,6 +39,29 @@ namespace AWS.Controllers
 
         }
 
+        [HttpDelete]
+        [Route("Delete")]
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            try
+            {
+                var a = await this.orderPremiumLog.DeleteOrPreLog(id);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the Delete method: {ex}");
+
+                throw;
+            }
+
+        }
 
         [HttpGet]
         [Route("get-OrderPre-By-LogId")]

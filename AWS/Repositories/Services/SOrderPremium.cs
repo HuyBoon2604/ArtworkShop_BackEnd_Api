@@ -43,6 +43,26 @@ namespace AWS.Repositories.Services
             }
         }
 
+        public async Task<bool> DeleteOrPre(string OrderPreId)
+        {
+            try
+            {
+                if (OrderPreId != null)
+                {
+                    var obj = await this.cxt.OrderPremia.Where(x => x.OrderPremiumId.Equals(OrderPreId)).FirstOrDefaultAsync();
+                    this.cxt.OrderPremia.Remove(obj);
+                    await this.cxt.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception($"{ex.Message}");
+            }
+        }
+
         public async Task<List<OrderPremium>> GetAll()
         {
             try

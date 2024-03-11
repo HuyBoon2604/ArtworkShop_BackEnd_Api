@@ -17,6 +17,7 @@ namespace AWS.Models
         public DateTime? CreateDate { get; set; }
         public string? TransactionCode { get; set; }
         public DateTime? VnpTransDate { get; set; }
+        public bool? StatusCancle { get; set; }
 
         public virtual Ordertb? Order { get; set; }
         public virtual ICollection<PaymentLog> PaymentLogs { get; set; }
