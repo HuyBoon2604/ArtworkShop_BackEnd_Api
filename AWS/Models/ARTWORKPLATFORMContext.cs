@@ -401,6 +401,10 @@ namespace AWS.Models
 
                 entity.Property(e => e.Address).HasMaxLength(255);
 
+                entity.Property(e => e.Bank).HasMaxLength(10);
+
+                entity.Property(e => e.BankAccount).HasMaxLength(50);
+
                 entity.Property(e => e.DateOfBirth).HasMaxLength(255);
 
                 entity.Property(e => e.Fullname).HasMaxLength(255);

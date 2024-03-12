@@ -9,6 +9,9 @@ namespace backend_not_clear.DTO.UserDTO
         public string? fullName { get; set; } = string.Empty;
 
         public string? gender { get; set; }
+        public string? Bannk { get; set; }
+        public string? BankAccount { get; set; }
+        
         public string? Address { get; set; }
 
         [Phone]
