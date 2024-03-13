@@ -88,6 +88,30 @@ namespace AWS.Controllers
 
         }
 
+        [HttpPost]
+        [Route("get-orderid-update-premiumid-in-user")]
+
+        public async Task<IActionResult> GetAndUpdatePremiumByOrderStatusTrue(string OrderPreId)
+        {
+            try
+            {
+                var a = await this.orderPremium.GetAndUpdatePremiumByOrderStatusTrue(OrderPreId);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the GetAndUpdatePremiumByOrderStatusTrue method: {ex}");
+
+                throw;
+            }
+
+        }
+
         [HttpGet]
         [Route("get-order-premeium-by-id")]
 

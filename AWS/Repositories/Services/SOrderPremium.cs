@@ -93,6 +93,28 @@ namespace AWS.Repositories.Services
             }
         }
 
+        public async Task<OrderPremium> GetAndUpdatePremiumByOrderStatusTrue(string OrderPreId)
+        {
+            try
+            {
+                var order = await this.cxt.OrderPremia.Where(x => x.OrderPremiumId.Equals(OrderPreId) && x.Status == true).FirstOrDefaultAsync();
+                var user =  this.cxt.Usertbs.FirstOrDefault(u => u.UserId == order.UserId);
+                if (user != null)
+                {
+                    user.PremiumId = order.PremiumId;
+                    this.cxt.Usertbs.Update(user);
+                    await this.cxt.SaveChangesAsync();
+                    return order;
+                }
+                return null;
+               
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<OrderPremium> UpdateStatus(string OrderPreId)
         {
             try
@@ -105,10 +127,10 @@ namespace AWS.Repositories.Services
             }
             catch (Exception ex)
             {
-
-
                 throw new Exception(ex.Message);
             }
         }
+
+       
     }
 }

@@ -230,5 +230,24 @@ namespace ArtWorkShop.Repositories.Services
                 throw;
             }
         }
+
+        //public async Task<Usertb> UpdatePremium(string OrderPreId, UpdatePreUser update)
+        //{
+        //    try
+        //    {
+        //        var order = await this.context.OrderPremia.Where(x => x.OrderPremiumId.Equals(OrderPreId) && x.Status == true).FirstOrDefaultAsync();
+
+        //        var x = await this.context.Usertbs.Where(a => a.UserId == id).FirstOrDefaultAsync();
+        //        x.Money = user.Money;
+        //        this.context.Usertbs.Update(x);
+        //        await this.context.SaveChangesAsync();
+        //        return x;
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+        //}
     }
 }
