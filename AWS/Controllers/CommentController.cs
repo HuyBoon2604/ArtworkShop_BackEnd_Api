@@ -65,6 +65,31 @@ namespace AWS.Controllers
 
         }
 
+
+        [HttpGet]
+        [Route("get-all-comment-By-Artwork-Id")]
+
+        public async Task<IActionResult> GetAllCommentByArtworkID(string id)
+        {
+            try
+            {
+                var a = await this.comment.GetCommentByArtworkID(id);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the GetAllCommentByArtworkID method: {ex}");
+
+                throw;
+            }
+
+        }
+
         [HttpPost]
         [Route("create-new")]
 
