@@ -64,7 +64,7 @@ namespace AWS.Controllers
 
         }
 
-        [HttpPost]
+        [HttpDelete]
         [Route("delete-order-success")]
 
         public async Task<IActionResult> DeleteSuccess(string id)

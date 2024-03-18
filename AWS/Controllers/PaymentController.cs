@@ -65,7 +65,7 @@ namespace AWS.Controllers
 
         }
 
-        [HttpPost]
+        [HttpDelete]
         [Route("delete-payment-complete")]
 
         public async Task<IActionResult> DeletePaymentComplete(string id)
