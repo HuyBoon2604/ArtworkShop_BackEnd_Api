@@ -67,6 +67,26 @@ namespace AWS.Repositories.Services
             }
         }
 
+        public async Task<bool> DeleteOrderComplete(string orderId)
+        {
+            try
+            {
+                if (orderId != null)
+                {
+                    var obj = await this.cxt.Ordertbs.Where(x => x.OrderId.Equals(orderId)).FirstOrDefaultAsync();
+                    this.cxt.Ordertbs.Remove(obj);
+                    await this.cxt.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception($"{ex.Message}");
+            }
+        }
+
         public async Task<List<Ordertb>> GetAll()
         {
             try

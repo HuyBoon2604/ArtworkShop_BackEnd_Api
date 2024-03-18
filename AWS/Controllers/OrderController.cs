@@ -64,6 +64,30 @@ namespace AWS.Controllers
 
         }
 
+        [HttpPost]
+        [Route("delete-order-success")]
+
+        public async Task<IActionResult> DeleteSuccess(string id)
+        {
+            try
+            {
+                var a = await this.order.DeleteOrderComplete(id);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the DeleteSuccess method: {ex}");
+
+                throw;
+            }
+
+        }
+
         [HttpGet]
         [Route("get-by-id")]
 

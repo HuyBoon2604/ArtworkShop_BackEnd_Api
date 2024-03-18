@@ -62,6 +62,26 @@ namespace AWS.Repositories.Services
             }
         }
 
+        public async Task<bool> DeletePaymentComplete(string paymentID)
+        {
+            try
+            {
+                if (paymentID != null)
+                {
+                    var obj = await this.context.Payments.Where(x => x.PaymentId.Equals(paymentID)).FirstOrDefaultAsync();
+                    this.context.Payments.Remove(obj);
+                    await this.context.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception($"{ex.Message}");
+            }
+        }
+
         public async Task<Payment> GetPayment(string OrderId)
         {
             try
