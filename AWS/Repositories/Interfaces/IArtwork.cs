@@ -17,6 +17,8 @@ namespace AWS.Repositories.Interfaces
         Task<List<Artwork>> GetByGenre(string genreId);
         Task<List<Artwork>> GetArtworkStatusTrue();
         Task<bool> Dellete(string id);
+        Task<List<Artwork>> TopArtworkLike();
+
 
     }
 }

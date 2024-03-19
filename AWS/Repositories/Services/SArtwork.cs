@@ -299,7 +299,21 @@ namespace AWS.Repositories.Services
             }
         }
 
-       
+        public async Task<List<Artwork>> TopArtworkLike()
+        {
+            try
+            {
+                var topArtworks = await cxt.Artworks
+                    .OrderByDescending(a => a.LikeTimes)
+                    .ToListAsync();
+
+                return topArtworks;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }
 

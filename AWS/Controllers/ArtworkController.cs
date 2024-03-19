@@ -44,6 +44,30 @@ namespace AWS.Controllers
         }
 
         [HttpGet]
+        [Route("get-top-artwork_like")]
+
+        public async Task<IActionResult> GetTopArtworkLike()
+        {
+            try
+            {
+                var a = await this.artwork.TopArtworkLike();
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the GetTopArtworkLike method: {ex}");
+
+                throw;
+            }
+
+        }
+
+        [HttpGet]
         [Route("get-by-id")]
 
         public async Task<IActionResult> GetByID(string id)
@@ -188,7 +212,6 @@ namespace AWS.Controllers
             }
 
         }
-
         [HttpPost]
         [Route("update-artwork")]
 

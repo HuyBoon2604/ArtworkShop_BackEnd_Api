@@ -5,6 +5,7 @@ using AWS.Models;
 using AWS.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
+using System.Collections.ObjectModel;
 
 namespace AWS.Repositories.Services
 {
@@ -67,6 +68,17 @@ namespace AWS.Repositories.Services
                 add.Time = collection.TIme;
 
                 cxt.LikeCollections.Add(add);
+
+                // count +1
+                var like = await cxt.Artworks
+                   .FirstOrDefaultAsync(a => a.ArtworkId == collection.ArtworkId);
+
+                if (like != null)
+                {
+                    like.LikeTimes = (like.LikeTimes ?? 0) + 1;
+                    cxt.Entry(like).State = EntityState.Modified;
+                }
+
                 await cxt.SaveChangesAsync();
 
                 return add;
@@ -90,7 +102,19 @@ namespace AWS.Repositories.Services
                 x.UserId.Equals(id.UserId)).FirstOrDefault();
 
                 this.cxt.LikeCollections.Remove(obj);
-                await this.cxt.SaveChangesAsync();
+
+                    // count - 1
+                    var like = await cxt.Artworks
+                       .FirstOrDefaultAsync(a => a.ArtworkId == id.ArtworkId);
+
+                    if (like != null)
+                    {
+                        like.LikeTimes = (like.LikeTimes ?? 0) - 1;
+                        cxt.Entry(like).State = EntityState.Modified;
+                    }
+                    
+                    await this.cxt.SaveChangesAsync();
+
                 return true;
             }
             return false;
