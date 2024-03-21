@@ -18,7 +18,7 @@ namespace AWS.Repositories.Interfaces
         Task<List<Artwork>> GetArtworkStatusTrue();
         Task<bool> Dellete(string id);
         Task<List<Artwork>> TopArtworkLike();
-
+        Task<List<Artwork>> GetArtworkByUserId(string id);
 
     }
 }

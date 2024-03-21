@@ -43,6 +43,31 @@ namespace AWS.Controllers
            
         }
 
+
+        [HttpGet]
+        [Route("get-all-artwork-by-userid")]
+
+        public async Task<IActionResult> GetAllArtworkByUserId(string userId)
+        {
+            try
+            {
+                var a = await this.artwork.GetArtworkByUserId(userId);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the GetAllArtworkByUserId method: {ex}");
+
+                throw;
+            }
+
+        }
+
         [HttpGet]
         [Route("get-top-artwork_like")]
 
