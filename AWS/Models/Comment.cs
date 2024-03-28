@@ -11,7 +11,6 @@ namespace AWS.Models
         public DateTime? Timestamp { get; set; }
         public string? Text { get; set; }
 
-        public virtual Artwork? Artwork { get; set; }
         public virtual Usertb? User { get; set; }
     }
 }

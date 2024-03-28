@@ -8,7 +8,6 @@ namespace AWS.Models
         public Ordertb()
         {
             Payments = new HashSet<Payment>();
-            TransactionLogs = new HashSet<TransactionLog>();
         }
 
         public string OrderId { get; set; } = null!;
@@ -19,9 +18,7 @@ namespace AWS.Models
         public decimal? Total { get; set; }
         public bool? StatusCancel { get; set; }
 
-        public virtual Artwork? Artwork { get; set; }
         public virtual Usertb? User { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }
-        public virtual ICollection<TransactionLog> TransactionLogs { get; set; }
     }
 }
