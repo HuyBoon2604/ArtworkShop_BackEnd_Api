@@ -11,6 +11,8 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
+using ProGCoder_MomoAPI.Models.Momo;
+using ProGCoder_MomoAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +47,9 @@ builder.Services.AddScoped<IReport, SReport>();
 builder.Services.AddScoped<IOrderPremium, SOrderPremium>();
 builder.Services.AddScoped<IOrderPremiumLog, SOrderPremiumLog>();
 
+//MOMO
+builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
+builder.Services.AddScoped<IMomoService, MomoService>();
 
 builder.Services.AddSwaggerGen(option =>
 {

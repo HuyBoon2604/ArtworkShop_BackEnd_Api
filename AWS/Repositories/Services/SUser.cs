@@ -23,7 +23,6 @@ namespace ArtWorkShop.Repositories.Services
             _configuration = configuration;
         }
 
-       
 
         public async Task<List<Usertb>> GetAllUsers()
         {

@@ -278,3 +278,8 @@ E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\obj\Debug\net6.0\refint\AWS.dll
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\obj\Debug\net6.0\AWS.pdb
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\obj\Debug\net6.0\AWS.genruntimeconfig.cache
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\obj\Debug\net6.0\ref\AWS.dll
+E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\Newtonsoft.Json.dll
+E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\RestSharp.dll
+E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\System.Text.Json.dll
+E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll

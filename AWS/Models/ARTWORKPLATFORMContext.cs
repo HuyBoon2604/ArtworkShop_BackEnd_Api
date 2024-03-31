@@ -130,7 +130,7 @@ namespace AWS.Models
             modelBuilder.Entity<LikeCollection>(entity =>
             {
                 entity.HasKey(e => new { e.UserId, e.ArtworkId })
-                    .HasName("PK__Like_Col__BA8FF64738A4FCF6");
+                    .HasName("PK__Like_Col__BA8FF64710055074");
 
                 entity.ToTable("Like_Collection");
 
@@ -207,7 +207,7 @@ namespace AWS.Models
             modelBuilder.Entity<Ordertb>(entity =>
             {
                 entity.HasKey(e => e.OrderId)
-                    .HasName("PK__Ordertb__C3905BAFBA2A8A0F");
+                    .HasName("PK__Ordertb__C3905BAFA2974B16");
 
                 entity.ToTable("Ordertb");
 
@@ -340,7 +340,7 @@ namespace AWS.Models
             modelBuilder.Entity<Usertb>(entity =>
             {
                 entity.HasKey(e => e.UserId)
-                    .HasName("PK__Usertb__1788CCAC48E84266");
+                    .HasName("PK__Usertb__1788CCAC45436510");
 
                 entity.ToTable("Usertb");
 
@@ -395,7 +395,7 @@ namespace AWS.Models
                         r => r.HasOne<Usertb>().WithMany().HasForeignKey("UserId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__User_Role__UserI__6E01572D"),
                         j =>
                         {
-                            j.HasKey("UserId", "RoleId").HasName("PK__User_Rol__BA0867E7FB7ADB0F");
+                            j.HasKey("UserId", "RoleId").HasName("PK__User_Rol__BA0867E7394AC7B3");
 
                             j.ToTable("User_Role");
 
