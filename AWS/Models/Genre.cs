@@ -7,12 +7,14 @@ namespace AWS.Models
     {
         public Genre()
         {
+            ArtworkCustomes = new HashSet<ArtworkCustome>();
             Artworks = new HashSet<Artwork>();
         }
 
         public string GenreId { get; set; } = null!;
         public string? Name { get; set; }
 
+        public virtual ICollection<ArtworkCustome> ArtworkCustomes { get; set; }
         public virtual ICollection<Artwork> Artworks { get; set; }
     }
 }

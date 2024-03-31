@@ -5,6 +5,11 @@ namespace AWS.Models
 {
     public partial class Artwork
     {
+        public Artwork()
+        {
+            OrderDetails = new HashSet<OrderDetail>();
+        }
+
         public string ArtworkId { get; set; } = null!;
         public string? UserId { get; set; }
         public string? ImageUrl { get; set; }
@@ -21,5 +26,6 @@ namespace AWS.Models
 
         public virtual Genre? Genre { get; set; }
         public virtual Usertb? User { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

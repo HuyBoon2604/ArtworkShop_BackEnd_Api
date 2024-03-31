@@ -7,6 +7,7 @@ namespace AWS.Models
     {
         public Usertb()
         {
+            ArtworkCustomes = new HashSet<ArtworkCustome>();
             Artworks = new HashSet<Artwork>();
             Comments = new HashSet<Comment>();
             LikeCollections = new HashSet<LikeCollection>();
@@ -34,6 +35,7 @@ namespace AWS.Models
         public string? BankAccount { get; set; }
 
         public virtual Premium? Premium { get; set; }
+        public virtual ICollection<ArtworkCustome> ArtworkCustomes { get; set; }
         public virtual ICollection<Artwork> Artworks { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<LikeCollection> LikeCollections { get; set; }

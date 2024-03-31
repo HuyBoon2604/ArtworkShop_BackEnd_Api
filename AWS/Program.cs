@@ -108,11 +108,11 @@ if (app.Environment.IsDevelopment())
 app.UseSwaggerUI();
 }
 
-//if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
-//{
-//    app.UseSwagger();
-//    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/AWS/swagger.json", "AWSApi v1"));
-//}
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/AWS/swagger.json", "AWSApi v1"));
+}
 
 app.UseHttpsRedirection();
 
