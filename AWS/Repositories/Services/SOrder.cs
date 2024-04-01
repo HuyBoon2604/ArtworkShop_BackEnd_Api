@@ -164,6 +164,19 @@ namespace AWS.Repositories.Services
             catch (Exception ex)
             {
 
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<List<Ordertb>> GetOrderStatusFalseByUserId(string id)
+        {
+            try
+            {
+                var a = await this.cxt.Ordertbs.Where(x => x.Status == true && x.UserId.Equals(id)).ToListAsync();
+                return a;
+            }
+            catch (Exception ex)
+            {
 
                 throw new Exception(ex.Message);
             }

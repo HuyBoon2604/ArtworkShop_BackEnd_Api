@@ -158,6 +158,31 @@ namespace AWS.Controllers
             }
 
         }
+        
+        [HttpGet]
+        [Route("get-order-false-by-userid")]
+
+        public async Task<IActionResult> GetOrderStatusFalseByUserId(string UserId)
+        {
+            try
+            {
+                var a = await this.order.GetOrderStatusFalseByUserId(UserId);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the GetOrderStatusFalseByUserId method: {ex}");
+
+                throw;
+            }
+
+        }
+
 
         [HttpPost]
         [Route("create-new-order")]
