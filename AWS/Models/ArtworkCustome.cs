@@ -5,7 +5,7 @@ namespace AWS.Models
 {
     public partial class ArtworkCustome
     {
-        public int ArtworkIdCustomeId { get; set; }
+        public int ArtworkCustomeId { get; set; }
         public string? OrderId { get; set; }
         public string? UserId { get; set; }
         public bool? Status { get; set; }

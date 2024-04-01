@@ -121,13 +121,35 @@ namespace AWS.Repositories.Services
         {
             try
             {
-                var a = await this.cxt.Ordertbs.Where(x => x.Status==false && x.OrderId.Equals(id)).FirstOrDefaultAsync();
+                var a = await this.cxt.Ordertbs.Where(x => x.Status == false && x.OrderId.Equals(id)).FirstOrDefaultAsync();
                 return a;
+
+                // Lấy danh sách các order của artwork dựa trên artworkId
+                //var orders = await cxt.Ordertbs
+                //    .Where(x => x.ArtworkId == id && x.Status == false)
+                //    .ToListAsync();
+
+
+                //// Lặp qua từng order và cập nhật số lượng tiền
+                //foreach (var order in orders)
+                //{
+                //    // Lấy số lượng đơn hàng artwork đã được thêm vào cho order này
+                //    int addedArtworkCount = cxt.Ordertbs
+                //        .Count(x => x.OrderId == order.OrderId && x.Status == false && x.ArtworkId == artworkId);
+
+                //    // Tính toán số lượng tiền mới của order dựa trên số lượng đơn hàng artwork đã được thêm vào
+                //    decimal newTotal = (decimal)(order.Total * addedArtworkCount);
+
+                //    // Cập nhật số lượng tiền của order
+                //    order.Total = newTotal;
+                //}
+
+                //// Lưu thay đổi vào cơ sở dữ liệu
+                //await cxt.SaveChangesAsync();
+                //return ;
             }
             catch (Exception ex)
             {
-
-
                 throw new Exception(ex.Message);
             }
         }
