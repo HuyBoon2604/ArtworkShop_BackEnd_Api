@@ -109,10 +109,6 @@ namespace AWS.Models
                     .HasMaxLength(50)
                     .HasColumnName("GenreID");
 
-                entity.Property(e => e.OrderId)
-                    .HasMaxLength(50)
-                    .HasColumnName("OrderID");
-
                 entity.Property(e => e.UserId)
                     .HasMaxLength(50)
                     .HasColumnName("UserID");
@@ -122,15 +118,10 @@ namespace AWS.Models
                     .HasForeignKey(d => d.GenreId)
                     .HasConstraintName("FK__Artwork_c__Genre__66603565");
 
-                entity.HasOne(d => d.Order)
-                    .WithMany(p => p.ArtworkCustomes)
-                    .HasForeignKey(d => d.OrderId)
-                    .HasConstraintName("FK__Artwork_c__Order__6754599E");
-
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.ArtworkCustomes)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Artwork_c__UserI__68487DD7");
+                    .HasConstraintName("FK__Artwork_c__UserI__6754599E");
             });
 
             modelBuilder.Entity<Comment>(entity =>
@@ -156,7 +147,7 @@ namespace AWS.Models
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Comments)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Comment__UserID__693CA210");
+                    .HasConstraintName("FK__Comment__UserID__68487DD7");
             });
 
             modelBuilder.Entity<Genre>(entity =>
@@ -173,7 +164,7 @@ namespace AWS.Models
             modelBuilder.Entity<LikeCollection>(entity =>
             {
                 entity.HasKey(e => new { e.UserId, e.ArtworkId })
-                    .HasName("PK__Like_Col__BA8FF647383C84F3");
+                    .HasName("PK__Like_Col__BA8FF64783E98BBD");
 
                 entity.ToTable("Like_Collection");
 
@@ -197,7 +188,7 @@ namespace AWS.Models
                     .WithMany(p => p.LikeCollections)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Like_Coll__UserI__6A30C649");
+                    .HasConstraintName("FK__Like_Coll__UserI__693CA210");
             });
 
             modelBuilder.Entity<OrderPremium>(entity =>
@@ -223,7 +214,7 @@ namespace AWS.Models
                 entity.HasOne(d => d.Premium)
                     .WithMany(p => p.OrderPremia)
                     .HasForeignKey(d => d.PremiumId)
-                    .HasConstraintName("FK__Order_Pre__Premi__6C190EBB");
+                    .HasConstraintName("FK__Order_Pre__Premi__6B24EA82");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.OrderPremia)
@@ -250,19 +241,21 @@ namespace AWS.Models
                 entity.HasOne(d => d.OrderPremium)
                     .WithMany(p => p.OrderPremiumLogs)
                     .HasForeignKey(d => d.OrderPremiumId)
-                    .HasConstraintName("FK__order_pre__Order__6E01572D");
+                    .HasConstraintName("FK__order_pre__Order__6D0D32F4");
             });
 
             modelBuilder.Entity<Ordertb>(entity =>
             {
                 entity.HasKey(e => e.OrderId)
-                    .HasName("PK__Ordertb__C3905BAFF95CDD8C");
+                    .HasName("PK__Ordertb__C3905BAF15055ECE");
 
                 entity.ToTable("Ordertb");
 
                 entity.Property(e => e.OrderId)
                     .HasMaxLength(50)
                     .HasColumnName("OrderID");
+
+                entity.Property(e => e.ArtworkCustomeId).HasColumnName("Artwork_customeID");
 
                 entity.Property(e => e.ArtworkId)
                     .HasMaxLength(50)
@@ -276,6 +269,11 @@ namespace AWS.Models
                     .HasMaxLength(50)
                     .HasColumnName("UserID");
 
+                entity.HasOne(d => d.ArtworkCustome)
+                    .WithMany(p => p.Ordertbs)
+                    .HasForeignKey(d => d.ArtworkCustomeId)
+                    .HasConstraintName("FK_Ordertb_Artwork_custome");
+
                 entity.HasOne(d => d.Artwork)
                     .WithMany(p => p.Ordertbs)
                     .HasForeignKey(d => d.ArtworkId)
@@ -284,7 +282,7 @@ namespace AWS.Models
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Ordertbs)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Ordertb__UserID__6EF57B66");
+                    .HasConstraintName("FK__Ordertb__UserID__6E01572D");
             });
 
             modelBuilder.Entity<Payment>(entity =>
@@ -394,7 +392,7 @@ namespace AWS.Models
             modelBuilder.Entity<Usertb>(entity =>
             {
                 entity.HasKey(e => e.UserId)
-                    .HasName("PK__Usertb__1788CCAC1D796180");
+                    .HasName("PK__Usertb__1788CCACA15522D4");
 
                 entity.ToTable("Usertb");
 
@@ -449,7 +447,7 @@ namespace AWS.Models
                         r => r.HasOne<Usertb>().WithMany().HasForeignKey("UserId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__User_Role__UserI__74AE54BC"),
                         j =>
                         {
-                            j.HasKey("UserId", "RoleId").HasName("PK__User_Rol__BA0867E784E87F33");
+                            j.HasKey("UserId", "RoleId").HasName("PK__User_Rol__BA0867E7D7CB76D2");
 
                             j.ToTable("User_Role");
 

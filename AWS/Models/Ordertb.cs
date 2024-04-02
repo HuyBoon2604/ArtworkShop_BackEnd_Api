@@ -7,7 +7,6 @@ namespace AWS.Models
     {
         public Ordertb()
         {
-            ArtworkCustomes = new HashSet<ArtworkCustome>();
             Payments = new HashSet<Payment>();
         }
 
@@ -19,10 +18,11 @@ namespace AWS.Models
         public decimal? Total { get; set; }
         public bool? StatusCancel { get; set; }
         public bool? StatusCustome { get; set; }
+        public int? ArtworkCustomeId { get; set; }
 
         public virtual Artwork? Artwork { get; set; }
+        public virtual ArtworkCustome? ArtworkCustome { get; set; }
         public virtual Usertb? User { get; set; }
-        public virtual ICollection<ArtworkCustome> ArtworkCustomes { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }
     }
 }

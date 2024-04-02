@@ -158,7 +158,7 @@ namespace AWS.Repositories.Services
         {
              try
             {
-                var a = await this.cxt.Ordertbs.Where(x => x.Status == true && x.OrderId.Equals(id)).FirstOrDefaultAsync();
+                var a = await this.cxt.Ordertbs.Where(x => x.Status == false && x.OrderId.Equals(id)).FirstOrDefaultAsync();
                 return a;
             }
             catch (Exception ex)
@@ -172,7 +172,7 @@ namespace AWS.Repositories.Services
         {
             try
             {
-                var a = await this.cxt.Ordertbs.Where(x => x.Status == true && x.UserId.Equals(id)).ToListAsync();
+                var a = await this.cxt.Ordertbs.Where(x => x.Status == false && x.UserId.Equals(id)).ToListAsync();
                 return a;
             }
             catch (Exception ex)

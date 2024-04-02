@@ -37,6 +37,7 @@ builder.Services.AddCors(p => p.AddPolicy("MyCors", buid =>
 
 builder.Services.AddScoped<IUser, SUser>();
 builder.Services.AddScoped<IArtwork, SArtwork>();
+builder.Services.AddScoped<IArtCustome, SArtCustome>();
 builder.Services.AddScoped<IGenre, SGenre>();
 builder.Services.AddScoped<IOrder, SOrder>();
 builder.Services.AddScoped<IPayment, SPayment>();
