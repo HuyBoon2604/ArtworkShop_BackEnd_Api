@@ -12,11 +12,10 @@ namespace AWS.Controllers
     public class VNPayController : ControllerBase
     {
         protected readonly ARTWORKPLATFORMContext context;
-        //private readonly double _exchangeRate;
         private readonly IConfiguration _configuration;
         public string URL_VNPAY_REFUND;
-        public string VNPAY_TMNCODE = "PYEUR6Q3";
-        public string VNPAY_HASH_SECRECT = "MUBZXLIDNFAVPCJGNIBPMJVYJGNHESRG";
+        public string VNPAY_TMNCODE = "9EXMKA9Y";
+        public string VNPAY_HASH_SECRECT = "UKPKKBBNZYMPXLSCSUWIQOORKVQYSTOV";
         public string VNPAY_VERSION = "2.1.0";
 
         /// <summary>
@@ -129,7 +128,7 @@ namespace AWS.Controllers
                 //vnp_SecureHash: HmacSHA512 cua du lieu tra ve
 
                 long orderId = Convert.ToInt64(vnpay.GetResponseData("vnp_TxnRef"));
-                float vnp_Amount = Convert.ToInt64(vnpay.GetResponseData("vnp_Amount")) / 100;
+                float vnp_Amount = Convert.ToInt64(vnpay.GetResponseData("vnp_Amount")) / 10000;
                 amount = vnp_Amount;
                 long vnpayTranId = Convert.ToInt64(vnpay.GetResponseData("vnp_TransactionNo"));
                 string vnp_ResponseCode = vnpay.GetResponseData("vnp_ResponseCode");
@@ -143,8 +142,8 @@ namespace AWS.Controllers
 
                 string taxVNPay = orderId.ToString();
                 var check = await this.context.Payments.Where(x => x.TransactionCode.Equals(taxVNPay)).FirstOrDefaultAsync();
-                check.Status = true;
-                check.CreateDate = DateTime.Now;
+                //check.Status = true;
+                //check.CreateDate = DateTime.Now;
                 //check.VnpTransDate = vnp_TransDate;
 
                 var order = await this.context.Ordertbs.Where(x => x.OrderId.Equals(check.OrderId)).FirstOrDefaultAsync();
@@ -154,13 +153,13 @@ namespace AWS.Controllers
                     this.context.Update(order);
                     await this.context.SaveChangesAsync();
                 }
-                //var orderDetail = await this.context.OrderDetail.Where(x => x.OrderId.Equals(check.OrderId)).ToListAsync();
+                //var orderDetail = await this.context.Or.Where(x => x.OrderId.Equals(check.OrderId)).ToListAsync();
                 //if (orderDetail != null)
                 //{
                 //    foreach (var detail in orderDetail)
                 //    {
                 //        detail.Status = true;
-                //        this.context.OrderDetail.Update(detail);
+                //        this.context.OrderDetails.Update(detail);
                 //        await this.context.SaveChangesAsync();
                 //    }
                 //}

@@ -178,7 +178,6 @@ namespace ArtWorkShop.Repositories.Services
                 existingUser.Fullname = user.fullName ?? existingUser.Fullname;
                 existingUser.Sex = user.gender ?? existingUser.Sex;
                 existingUser.PhoneNumber = user.Phone ?? existingUser.PhoneNumber;
-                existingUser.Address = user.Address ?? existingUser.Address;
                 existingUser.ImageUrl = user.imgURL ?? existingUser.ImageUrl;
                 existingUser.DateOfBirth = user.dateOfBird ?? existingUser.DateOfBirth;
                 existingUser.Bank = user.Bannk ?? existingUser.Bank;

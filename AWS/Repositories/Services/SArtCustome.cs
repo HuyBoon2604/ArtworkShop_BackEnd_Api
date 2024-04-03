@@ -34,24 +34,6 @@ namespace AWS.Repositories.Services
                         Description = artcustome.Description,
                     };
 
-                    // Add Genres to the artwork if provided
-                    //if (artcustome.Genres != null && artcustome.Genres.Any())
-                    //{
-                    //    foreach (var genreDto in artcustome.Genres)
-                    //    {
-                    //        var genre = await cxt.Genres.FindAsync(genreDto.GenreID);
-                    //        if (genre != null)
-                    //        {
-                    //            artworkCustome.Genre = genre;
-                    //        }
-                    //        else
-                    //        {
-                    //            // Handle error if Genre doesn't exist
-                    //            throw new Exception($"Genre with ID {genreDto.GenreID} not found.");
-                    //        }
-                    //    }
-                    //}
-
                     await cxt.ArtworkCustomes.AddAsync(artworkCustome); // Corrected to ArtworkCustomes
                     await cxt.SaveChangesAsync();
 

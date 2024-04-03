@@ -12,7 +12,6 @@ namespace backend_not_clear.DTO.UserDTO
         public string? Bannk { get; set; }
         public string? BankAccount { get; set; }
         
-        public string? Address { get; set; }
 
         [Phone]
         public string? Phone { get; set; }

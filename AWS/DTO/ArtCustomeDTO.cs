@@ -6,7 +6,6 @@
         public string DeadlineDate { get; set; }
         public string image { get; set; }
 
-        //public List<GerneArtworkDTO>? Genres { get; set; }
 
     }
 }
