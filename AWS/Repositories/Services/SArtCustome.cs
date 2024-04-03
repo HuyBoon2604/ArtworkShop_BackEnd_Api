@@ -25,32 +25,34 @@ namespace AWS.Repositories.Services
                 {
                     var artworkCustome = new ArtworkCustome
                     {
-                        ArtworkCustomeId = int.MaxValue,
+                        ArtworkCustomeId = "AC" + Guid.NewGuid().ToString().Substring(0, 5),
                         UserId = userid,
-                        Status = artcustome.Status,
+                        Status = false,
+                        Time = DateTime.Now,    
+                        Image = artcustome.image,
                         DeadlineDate = artcustome.DeadlineDate,
                         Description = artcustome.Description,
                     };
 
                     // Add Genres to the artwork if provided
-                    if (artcustome.Genres != null && artcustome.Genres.Any())
-                    {
-                        foreach (var genreDto in artcustome.Genres)
-                        {
-                            var genre = await cxt.Genres.FindAsync(genreDto.GenreID);
-                            if (genre != null)
-                            {
-                                artworkCustome.Genre = genre;
-                            }
-                            else
-                            {
-                                // Handle error if Genre doesn't exist
-                                throw new Exception($"Genre with ID {genreDto.GenreID} not found.");
-                            }
-                        }
-                    }
+                    //if (artcustome.Genres != null && artcustome.Genres.Any())
+                    //{
+                    //    foreach (var genreDto in artcustome.Genres)
+                    //    {
+                    //        var genre = await cxt.Genres.FindAsync(genreDto.GenreID);
+                    //        if (genre != null)
+                    //        {
+                    //            artworkCustome.Genre = genre;
+                    //        }
+                    //        else
+                    //        {
+                    //            // Handle error if Genre doesn't exist
+                    //            throw new Exception($"Genre with ID {genreDto.GenreID} not found.");
+                    //        }
+                    //    }
+                    //}
 
-                    cxt.ArtworkCustomes.Add(artworkCustome); // Corrected to ArtworkCustomes
+                    await cxt.ArtworkCustomes.AddAsync(artworkCustome); // Corrected to ArtworkCustomes
                     await cxt.SaveChangesAsync();
 
                     return artworkCustome;
@@ -59,7 +61,6 @@ namespace AWS.Repositories.Services
             }
             catch (Exception e)
             {
-
                 throw new Exception(e.Message);
             }
         }
@@ -77,7 +78,7 @@ namespace AWS.Repositories.Services
             }
         }
 
-        public async Task<ArtworkCustome> GetCustomeArtworkById(int artid)
+        public async Task<ArtworkCustome> GetCustomeArtworkById(string artid)
         {
             try
             {

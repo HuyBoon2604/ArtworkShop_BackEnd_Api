@@ -43,7 +43,7 @@ namespace AWS.Controllers
         [HttpGet]
         [Route("get-custome-artwork-by-id")]
 
-        public async Task<IActionResult> GetCustomeArtworkById(int id)
+        public async Task<IActionResult> GetCustomeArtworkById(string id)
         {
             try
             {

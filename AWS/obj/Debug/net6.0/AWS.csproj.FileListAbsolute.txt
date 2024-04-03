@@ -234,6 +234,8 @@ E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\Microsoft.IdentityModel
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\Microsoft.OpenApi.dll
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\Newtonsoft.Json.dll
+E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\RestSharp.dll
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -243,6 +245,8 @@ E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\System.IdentityModel.To
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\System.Runtime.Caching.dll
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\System.Security.Permissions.dll
+E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\System.Text.Json.dll
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\System.Windows.Extensions.dll
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
@@ -255,6 +259,7 @@ E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\runtimes\unix\lib\netco
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\obj\Debug\net6.0\AWS.csproj.AssemblyReference.cache
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\obj\Debug\net6.0\AWS.GeneratedMSBuildEditorConfig.editorconfig
@@ -278,8 +283,3 @@ E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\obj\Debug\net6.0\refint\AWS.dll
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\obj\Debug\net6.0\AWS.pdb
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\obj\Debug\net6.0\AWS.genruntimeconfig.cache
 E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\obj\Debug\net6.0\ref\AWS.dll
-E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\Newtonsoft.Json.dll
-E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\RestSharp.dll
-E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\System.Text.Encodings.Web.dll
-E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\System.Text.Json.dll
-E:\GAP_KI\4\ArtworkShop_BackEnd_Api\AWS\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll

@@ -18,7 +18,7 @@ namespace AWS.Models
         public decimal? Total { get; set; }
         public bool? StatusCancel { get; set; }
         public bool? StatusCustome { get; set; }
-        public int? ArtworkCustomeId { get; set; }
+        public string? ArtworkCustomeId { get; set; }
 
         public virtual Artwork? Artwork { get; set; }
         public virtual ArtworkCustome? ArtworkCustome { get; set; }

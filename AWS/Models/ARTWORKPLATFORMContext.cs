@@ -96,10 +96,10 @@ namespace AWS.Models
                 entity.ToTable("Artwork_custome");
 
                 entity.Property(e => e.ArtworkCustomeId)
-                    .ValueGeneratedNever()
+                    .HasMaxLength(50)
                     .HasColumnName("Artwork_customeID");
 
-                entity.Property(e => e.DeadlineDate).HasColumnType("datetime");
+                entity.Property(e => e.DeadlineDate).HasMaxLength(50);
 
                 entity.Property(e => e.Description)
                     .HasMaxLength(255)
@@ -108,6 +108,12 @@ namespace AWS.Models
                 entity.Property(e => e.GenreId)
                     .HasMaxLength(50)
                     .HasColumnName("GenreID");
+
+                entity.Property(e => e.Image).HasColumnName("image");
+
+                entity.Property(e => e.Time)
+                    .HasColumnType("datetime")
+                    .HasColumnName("time");
 
                 entity.Property(e => e.UserId)
                     .HasMaxLength(50)
@@ -164,7 +170,7 @@ namespace AWS.Models
             modelBuilder.Entity<LikeCollection>(entity =>
             {
                 entity.HasKey(e => new { e.UserId, e.ArtworkId })
-                    .HasName("PK__Like_Col__BA8FF64783E98BBD");
+                    .HasName("PK__Like_Col__BA8FF6479711A305");
 
                 entity.ToTable("Like_Collection");
 
@@ -247,7 +253,7 @@ namespace AWS.Models
             modelBuilder.Entity<Ordertb>(entity =>
             {
                 entity.HasKey(e => e.OrderId)
-                    .HasName("PK__Ordertb__C3905BAF15055ECE");
+                    .HasName("PK__Ordertb__C3905BAF2BEDB7AC");
 
                 entity.ToTable("Ordertb");
 
@@ -255,7 +261,9 @@ namespace AWS.Models
                     .HasMaxLength(50)
                     .HasColumnName("OrderID");
 
-                entity.Property(e => e.ArtworkCustomeId).HasColumnName("Artwork_customeID");
+                entity.Property(e => e.ArtworkCustomeId)
+                    .HasMaxLength(50)
+                    .HasColumnName("Artwork_customeID");
 
                 entity.Property(e => e.ArtworkId)
                     .HasMaxLength(50)
@@ -392,7 +400,7 @@ namespace AWS.Models
             modelBuilder.Entity<Usertb>(entity =>
             {
                 entity.HasKey(e => e.UserId)
-                    .HasName("PK__Usertb__1788CCACA15522D4");
+                    .HasName("PK__Usertb__1788CCAC2F7F0C13");
 
                 entity.ToTable("Usertb");
 
@@ -447,7 +455,7 @@ namespace AWS.Models
                         r => r.HasOne<Usertb>().WithMany().HasForeignKey("UserId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__User_Role__UserI__74AE54BC"),
                         j =>
                         {
-                            j.HasKey("UserId", "RoleId").HasName("PK__User_Rol__BA0867E7D7CB76D2");
+                            j.HasKey("UserId", "RoleId").HasName("PK__User_Rol__BA0867E7D6CC702A");
 
                             j.ToTable("User_Role");
 
