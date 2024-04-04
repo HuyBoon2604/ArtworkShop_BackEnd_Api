@@ -40,6 +40,30 @@ namespace AWS.Controllers
 
         }
 
+        [HttpGet]
+        [Route("get-all-order-by-user-id")]
+
+        public async Task<IActionResult> GetAllByUserID(string userID)
+        {
+            try
+            {
+                var a = await this.order.GetAllByUserId(userID);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the GetAllByUserID method: {ex}");
+
+                throw;
+            }
+
+        }
+
         [HttpPost]
         [Route("delete-order")]
 

@@ -1,4 +1,5 @@
-﻿using AWS.DTO.ArtworkDTO;
+﻿using AWS.DTO;
+using AWS.DTO.ArtworkDTO;
 using AWS.DTO.Order;
 using AWS.Models;
 using AWS.Repositories.Interfaces;
@@ -44,6 +45,11 @@ namespace AWS.Repositories.Services
                 throw new Exception(ex.Message);
             }
      
+        }
+
+        public Task<Ordertb> CreateNewOrderCustome(CreateOrderCustomeDTO order)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<Ordertb> DeleteOrder(string orderId)
@@ -93,6 +99,20 @@ namespace AWS.Repositories.Services
             {
                 var list = await this.cxt.Ordertbs.ToListAsync();
                 return list;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<List<Ordertb>> GetAllByUserId(string id)
+        {
+            try
+            {
+                var a = await this.cxt.Ordertbs.Where(x => x.UserId.Equals(id)).ToListAsync();
+                return a;
             }
             catch (Exception ex)
             {
