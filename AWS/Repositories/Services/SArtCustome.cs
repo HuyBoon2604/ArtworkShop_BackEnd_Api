@@ -32,6 +32,7 @@ namespace AWS.Repositories.Services
                         Image = artcustome.image,
                         DeadlineDate = artcustome.DeadlineDate,
                         Description = artcustome.Description,
+                        Price = artcustome.money
                     };
 
                     await cxt.ArtworkCustomes.AddAsync(artworkCustome); // Corrected to ArtworkCustomes
