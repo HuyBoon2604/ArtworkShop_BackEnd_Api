@@ -113,6 +113,30 @@ namespace AWS.Controllers
 
         }
 
+      [HttpPost]
+        [Route("Update-Money-ArtCustome")]
+
+        public async Task<IActionResult> UpdateMoneyArtCustome(string artid, decimal money)
+        {
+            try
+            {
+                var a = await this.artCustome.UpdateMoneyArtCustome(artid,money);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            } 
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the UpdateMoneyArtCustome method: {ex}");
+
+                throw;
+            }
+
+        }
+
         [HttpDelete]
         [Route("delete")]
 

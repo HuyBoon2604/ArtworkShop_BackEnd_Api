@@ -1,4 +1,5 @@
-﻿using AWS.DTO.Order;
+﻿using AWS.DTO;
+using AWS.DTO.Order;
 using AWS.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -230,7 +231,34 @@ namespace AWS.Controllers
                 throw;
             }
         }
-            [HttpPost]
+
+        
+
+        [HttpPost]
+        [Route("create-new-order-custome")]
+
+        public async Task<IActionResult> CreateNewOrderCustome(CreateOrderCustomeDTO order)
+        {
+            try
+            {
+                var a = await this.order.CreateNewOrderCustome(order);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the CreateNewOrderCustome method: {ex}");
+
+                throw;
+            }
+        }
+
+
+        [HttpPost]
             [Route("update-order")]
 
             public async Task<IActionResult> UpdateOrder(string order)

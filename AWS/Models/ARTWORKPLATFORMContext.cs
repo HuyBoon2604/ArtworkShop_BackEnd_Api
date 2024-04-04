@@ -107,6 +107,10 @@ namespace AWS.Models
 
                 entity.Property(e => e.Image).HasColumnName("image");
 
+                entity.Property(e => e.Price)
+                    .HasColumnType("decimal(18, 0)")
+                    .HasColumnName("price");
+
                 entity.Property(e => e.Time)
                     .HasColumnType("datetime")
                     .HasColumnName("time");

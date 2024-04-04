@@ -47,9 +47,34 @@ namespace AWS.Repositories.Services
      
         }
 
-        public Task<Ordertb> CreateNewOrderCustome(CreateOrderCustomeDTO order)
+        public async Task<Ordertb> CreateNewOrderCustome(CreateOrderCustomeDTO order)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var add = new Ordertb();
+                add.OrderId = "OC" + Guid.NewGuid().ToString().Substring(0, 6);
+                add.ArtworkCustomeId = order.ArtwokCustomeID;
+                add.UserId = order.UserID;
+                add.CreateDate = order.CreateDate;
+                add.StatusCustome = false;
+                //add.StatusCancel = true;
+                add.Total = order.Money;
+
+                var ArtworkCustome = await cxt.ArtworkCustomes.FindAsync(order.ArtwokCustomeID);
+                if (ArtworkCustome != null)
+                {
+                    add.Total = ArtworkCustome.Price; // Gán giá trị Price từ ArtworkCustome cho đơn hàng
+                }
+
+                await this.cxt.Ordertbs.AddAsync(add);
+                await this.cxt.SaveChangesAsync();
+                return add;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<Ordertb> DeleteOrder(string orderId)

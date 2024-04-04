@@ -17,6 +17,7 @@ namespace AWS.Models
         public string? Description { get; set; }
         public DateTime? Time { get; set; }
         public string? Image { get; set; }
+        public decimal? Price { get; set; }
 
         public virtual Usertb? User { get; set; }
         public virtual ICollection<Ordertb> Ordertbs { get; set; }
