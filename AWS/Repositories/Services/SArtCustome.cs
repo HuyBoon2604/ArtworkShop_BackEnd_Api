@@ -47,6 +47,25 @@ namespace AWS.Repositories.Services
             }
         }
 
+        public async Task<bool> Delete(string artid)
+        {
+
+            try
+            {
+                var y = await this.cxt.ArtworkCustomes.Where(x => x.ArtworkCustomeId == artid).FirstOrDefaultAsync();
+                y.Status = true;
+
+                cxt.ArtworkCustomes.Remove(y);
+                await cxt.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
         public async Task<List<ArtworkCustome>> GetAllArtworkCustome()
         {
             try
@@ -66,6 +85,24 @@ namespace AWS.Repositories.Services
             {
                 var y = await this.cxt.ArtworkCustomes.Where(x => x.ArtworkCustomeId == artid).FirstOrDefaultAsync();
                 return y;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public async Task<bool> UpdateStaus(string artid)
+        {
+            try
+            {
+                var y = await this.cxt.ArtworkCustomes.Where(x => x.ArtworkCustomeId == artid).FirstOrDefaultAsync();
+                y.Status = true;
+
+                cxt.ArtworkCustomes.Update(y); 
+                await cxt.SaveChangesAsync();
+
+                return true;    
             }
             catch (Exception e)
             {

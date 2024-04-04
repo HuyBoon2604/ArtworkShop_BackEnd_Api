@@ -88,5 +88,53 @@ namespace AWS.Controllers
             }
 
         }
+
+        [HttpPost]
+        [Route("update-status")]
+
+        public async Task<IActionResult> Update(string userid)
+        {
+            try
+            {
+                var a = await this.artCustome.UpdateStaus(userid);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the Update method: {ex}");
+
+                throw;
+            }
+
+        }
+
+        [HttpDelete]
+        [Route("delete")]
+
+        public async Task<IActionResult> Delete(string userid)
+        {
+            try
+            {
+                var a = await this.artCustome.Delete(userid);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the delete method: {ex}");
+
+                throw;
+            }
+
+        }
     }
 }
