@@ -35,6 +35,21 @@ namespace AWS.Repositories.Services
             }
         }
 
+        public async Task<bool> Delette(string OrderRequireId)
+        {
+            try
+            {
+                var y = await this.cxt.OrderRequires.Where(x => x.OrderRequireId == OrderRequireId).FirstOrDefaultAsync();
+                this.cxt.Remove(y);
+                await this.cxt.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
         public async Task<List<OrderRequire>> GetAllOrderRequire()
         {
 

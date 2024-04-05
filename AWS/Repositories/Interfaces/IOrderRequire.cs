@@ -10,6 +10,7 @@ namespace AWS.Repositories.Interfaces
         Task<List<OrderRequire>> GetOrderRequireByArtCustomeId(string id);
         Task<OrderRequire> CreateNewOrderRequire(NewOrderRequireDTO order);
         Task<bool> UpdateStatusOrderRequire(string OrderRequireId);
+        Task<bool> Delette(string OrderRequireId);
 
     }
 }

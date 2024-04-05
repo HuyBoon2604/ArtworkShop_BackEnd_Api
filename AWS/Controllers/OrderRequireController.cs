@@ -1,4 +1,5 @@
 ﻿using AWS.DTO;
+using AWS.Models;
 using AWS.Repositories.Interfaces;
 using AWS.Repositories.Services;
 using Microsoft.AspNetCore.Http;
@@ -112,6 +113,31 @@ namespace AWS.Controllers
             }
 
         }
+
+        [HttpDelete]
+        [Route("Delete-by-OrderRequireID")]
+
+        public async Task<IActionResult> Delete(string OrderRequireId)
+        {
+            try
+            {
+                var a = await this.orderRequire.Delette(OrderRequireId);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the Delete method: {ex}");
+
+                throw;
+            }
+
+        }
+
 
         [HttpPost]
         [Route("Update-Status-Order-Require")]
