@@ -10,6 +10,7 @@ namespace AWS.Models
         public bool? Status { get; set; }
         public DateTime? LogDate { get; set; }
         public decimal? Total { get; set; }
+        public string? TransactionCode { get; set; }
 
         public virtual OrderPremium? OrderPremium { get; set; }
     }

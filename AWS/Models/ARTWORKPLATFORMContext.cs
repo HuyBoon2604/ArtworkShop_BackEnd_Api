@@ -239,6 +239,8 @@ namespace AWS.Models
 
                 entity.Property(e => e.Total).HasColumnType("decimal(18, 0)");
 
+                entity.Property(e => e.TransactionCode).HasMaxLength(50);
+
                 entity.HasOne(d => d.OrderPremium)
                     .WithMany(p => p.OrderPremiumLogs)
                     .HasForeignKey(d => d.OrderPremiumId)
