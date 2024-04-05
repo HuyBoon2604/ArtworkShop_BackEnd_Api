@@ -154,6 +154,124 @@ namespace AWS.Controllers
             }
 
         }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        [HttpGet("get-payment-order-custome")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetOrderCustome(string PaymentOrderCustomeID)
+        {
+            try
+            {
+                var check = await this.context.PaymentCusArts.Where(x => x.PaymentCusArtId.Equals(PaymentOrderCustomeID)).FirstOrDefaultAsync();
+                if (check != null)
+                {
+                    string ip = "256.256.256.1";
+                    string url = _configuration["VnPay:Url"];
+                    string returnUrl = _configuration["VnPay:ReturnAdminPath"];
+                    string tmnCode = _configuration["VnPay:TmnCode"];
+                    string hashSecret = _configuration["VnPay:HashSecret"];
+                    VnPayLibrary pay = new VnPayLibrary();
+
+                    pay.AddRequestData("vnp_Version", "2.1.0"); //Phiên bản api mà merchant kết nối. Phiên bản hiện tại là 2.0.0
+                    pay.AddRequestData("vnp_Command", "pay"); //Mã API sử dụng, mã cho giao dịch thanh toán là 'pay'
+                    pay.AddRequestData("vnp_TmnCode", tmnCode); //Mã website của merchant trên hệ thống của VNPAY (khi đăng ký tài khoản sẽ có trong mail VNPAY gửi về)
+                    pay.AddRequestData("vnp_Amount", ((int)check.Amount * 100).ToString()); //số tiền cần thanh toán, công thức: số tiền * 100 - ví dụ 10.000 (mười nghìn đồng) --> 1000000
+                    pay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss")); //ngày thanh toán theo định dạng yyyyMMddHHmmss
+                    pay.AddRequestData("vnp_CurrCode", "VND"); //Đơn vị tiền tệ sử dụng thanh toán. Hiện tại chỉ hỗ trợ VND
+                    pay.AddRequestData("vnp_IpAddr", ip); //Địa chỉ IP của khách hàng thực hiện giao dịch
+                    pay.AddRequestData("vnp_Locale", "vn"); //Ngôn ngữ giao diện hiển thị - Tiếng Việt (vn), Tiếng Anh (en)
+                    //pay.AddRequestData("vnp_OrderInfo", "ĐASADASOOPAO23SDSD"); //Thông tin mô tả nội dung thanh toán
+                    pay.AddRequestData("vnp_OrderInfo", "Thanh toán sản phẩm thông qua hệ thống BCS");
+                    pay.AddRequestData("vnp_OrderType", "other"); //topup: Nạp tiền điện thoại - billpayment: Thanh toán hóa đơn - fashion: Thời trang - other: Thanh toán trực tuyến
+                    pay.AddRequestData("vnp_ReturnUrl", returnUrl); //URL thông báo kết quả giao dịch khi Khách hàng kết thúc thanh toán
+                    // tách hóa đơn ra để thêm vào db
+                    string taxVNPay = DateTime.Now.Ticks.ToString();
+                    pay.AddRequestData("vnp_TxnRef", taxVNPay); //mã hóa đơn
+                    pay.AddRequestData("vnp_ExpireDate", DateTime.Now.AddHours(1).ToString("yyyyMMddHHmmss")); //Thời gian kết thúc thanh toán
+                    string paymentUrl = pay.CreateRequestUrl(url, hashSecret);
+
+                    // update db
+                    //check.TransactionCode = taxVNPay;
+                    this.context.PaymentCusArts.Update(check);
+                    if (await this.context.SaveChangesAsync() > 0)
+                    {
+                        return Ok(paymentUrl);
+                    }
+                    else
+                    {
+                        throw new Exception("Lỗi trong quá trình lưu vào cơ sở dữ liệu");
+                    }
+
+                }
+                else
+                {
+                    throw new Exception("không tồn tại donate id");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        [HttpGet("PaymentConfirm-CustomeArtwork-Order")]
+        public async Task<IActionResult> ConfirmCustomeArtwork()
+        {
+            string returnUrl = _configuration["VnPay:ReturnPath"];
+            float amount = 0;
+            string status = "failed";
+            if (Request.Query.Count > 0)
+            {
+                string vnp_HashSecret = _configuration["VnPay:HashSecret"]; //Secret key
+                var vnpayData = Request.Query;
+                VnPayLibrary vnpay = new VnPayLibrary();
+                foreach (string s in vnpayData.Keys)
+                {
+                    //get all querystring data
+                    if (!string.IsNullOrEmpty(s) && s.StartsWith("vnp_"))
+                    {
+                        vnpay.AddResponseData(s, vnpayData[s]);
+                    }
+                }
+                //Lay danh sach tham so tra ve tu VNPAY
+                //vnp_TxnRef: Ma don hang merchant gui VNPAY tai command=pay    
+                //vnp_TransactionNo: Ma GD tai he thong VNPAY
+                //vnp_ResponseCode:Response code from VNPAY: 00: Thanh cong, Khac 00: Xem tai lieu
+                //vnp_SecureHash: HmacSHA512 cua du lieu tra ve
+
+                long orderId = Convert.ToInt64(vnpay.GetResponseData("vnp_TxnRef"));
+                float vnp_Amount = Convert.ToInt64(vnpay.GetResponseData("vnp_Amount")) / 10000;
+                amount = vnp_Amount;
+                long vnpayTranId = Convert.ToInt64(vnpay.GetResponseData("vnp_TransactionNo"));
+                string vnp_ResponseCode = vnpay.GetResponseData("vnp_ResponseCode");
+                string vnp_TransactionStatus = vnpay.GetResponseData("vnp_TransactionStatus");
+                String vnp_SecureHash = Request.Query["vnp_SecureHash"];
+                bool checkSignature = vnpay.ValidateSignature(vnp_SecureHash, vnp_HashSecret);
+                var vnp_OrderInfo = vnpay.GetResponseData("vnp_OrderInfo");
+                var vnp_TransDate = vnpay.GetResponseData("vnp_PayDate");
+                status = "success";
+
+                string taxVNPay = orderId.ToString();
+                var check = await this.context.PaymentCusArts.Where(x => x.TransctionCode.Equals(taxVNPay)).FirstOrDefaultAsync();
+
+                var order = await this.context.OrderCusArts.Where(x => x.OrderCusArtId.Equals(check.OrderCusArtId)).FirstOrDefaultAsync();
+                if (order != null)
+                {
+                    order.Status = true;
+                    this.context.Update(order);
+                    await this.context.SaveChangesAsync();
+                }
+
+                this.context.PaymentCusArts.Update(check);
+                await this.context.SaveChangesAsync();
+            }
+
+            return Redirect(returnUrl + "?amount=" + amount + "&status=" + status);
+        }
+
+
+        /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         /// <summary>
         /// [Guest] Endpoint for company confirm payment with condition

@@ -48,6 +48,8 @@ builder.Services.AddScoped<IReport, SReport>();
 builder.Services.AddScoped<IOrderPremium, SOrderPremium>();
 builder.Services.AddScoped<IOrderPremiumLog, SOrderPremiumLog>();
 builder.Services.AddScoped<IOrderRequire, SOrderRequire>();
+builder.Services.AddScoped<IOrderCusArt, SOrderCusArt>();
+builder.Services.AddScoped<IPaymentCusArt, SPaymentCusArt>();
 
 //MOMO
 builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
