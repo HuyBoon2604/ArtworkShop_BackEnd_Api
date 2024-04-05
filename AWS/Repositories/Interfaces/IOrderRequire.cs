@@ -7,6 +7,7 @@ namespace AWS.Repositories.Interfaces
     {
         Task<List<OrderRequire>> GetAllOrderRequire();
         Task<OrderRequire> GetOrderRequireById(string id);
+        Task<OrderRequire> GetOrderRequireByArtCustomeId(string id);
         Task<OrderRequire> CreateNewOrderRequire(NewOrderRequireDTO order);
         Task<bool> UpdateStatusOrderRequire(string OrderRequireId);
 

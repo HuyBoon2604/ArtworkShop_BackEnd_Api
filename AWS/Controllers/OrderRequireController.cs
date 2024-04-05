@@ -40,6 +40,30 @@ namespace AWS.Controllers
             }
 
         }
+        
+        [HttpGet]
+        [Route("Get-Order-Require-By-ArtCustomeId")]
+
+        public async Task<IActionResult> GetOrderRequireByArtCustomeId(string ArtCustomeId)
+        {
+            try
+            {
+                var a = await this.orderRequire.GetOrderRequireByArtCustomeId(ArtCustomeId);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the GetOrderRequireByArtCustomeId method: {ex}");
+
+                throw;
+            }
+
+        }
 
         [HttpGet]
         [Route("Get-Order-Require-By-Id")]

@@ -49,8 +49,20 @@ namespace AWS.Repositories.Services
             }
         }
 
-        public async Task<OrderRequire> GetOrderRequireById(string id)
+        public async Task<OrderRequire> GetOrderRequireByArtCustomeId(string id)
         {
+            try
+            {
+                var y = await this.cxt.OrderRequires.Where(x => x.ArtworkCustomeId == id).FirstOrDefaultAsync();
+                return y;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+
+            }
+        }
+            public async Task<OrderRequire> GetOrderRequireById(string id){
             try
             {
                 var y = await this.cxt.OrderRequires.Where(x => x.OrderRequireId == id).FirstOrDefaultAsync();

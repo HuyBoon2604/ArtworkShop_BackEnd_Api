@@ -95,6 +95,83 @@ namespace AWS.Controllers
 
         }
 
+        /// <summary>
+        /// [Guest] Endpoint for company confirm payment with condition
+        /// </summary>
+        /// <returns>List of user</returns>
+        /// <response code="200">Returns the list of user</response>
+        /// <response code="204">Returns if list of user is empty</response>
+        /// <response code="403">Return if token is access denied</response>
+        [HttpGet("PaymentConfirm")]
+        public async Task<IActionResult> Confirm()
+        {
+            string returnUrl = _configuration["VnPay:ReturnPath"];
+            float amount = 0;
+            string status = "failed";
+            if (Request.Query.Count > 0)
+            {
+                string vnp_HashSecret = _configuration["VnPay:HashSecret"]; //Secret key
+                var vnpayData = Request.Query;
+                VnPayLibrary vnpay = new VnPayLibrary();
+                foreach (string s in vnpayData.Keys)
+                {
+                    //get all querystring data
+                    if (!string.IsNullOrEmpty(s) && s.StartsWith("vnp_"))
+                    {
+                        vnpay.AddResponseData(s, vnpayData[s]);
+                    }
+                }
+                //Lay danh sach tham so tra ve tu VNPAY
+                //vnp_TxnRef: Ma don hang merchant gui VNPAY tai command=pay    
+                //vnp_TransactionNo: Ma GD tai he thong VNPAY
+                //vnp_ResponseCode:Response code from VNPAY: 00: Thanh cong, Khac 00: Xem tai lieu
+                //vnp_SecureHash: HmacSHA512 cua du lieu tra ve
+
+                long orderId = Convert.ToInt64(vnpay.GetResponseData("vnp_TxnRef"));
+                float vnp_Amount = Convert.ToInt64(vnpay.GetResponseData("vnp_Amount")) / 10000;
+                amount = vnp_Amount;
+                long vnpayTranId = Convert.ToInt64(vnpay.GetResponseData("vnp_TransactionNo"));
+                string vnp_ResponseCode = vnpay.GetResponseData("vnp_ResponseCode");
+                string vnp_TransactionStatus = vnpay.GetResponseData("vnp_TransactionStatus");
+                String vnp_SecureHash = Request.Query["vnp_SecureHash"];
+                bool checkSignature = vnpay.ValidateSignature(vnp_SecureHash, vnp_HashSecret);
+                var vnp_OrderInfo = vnpay.GetResponseData("vnp_OrderInfo");
+                var vnp_TransDate = vnpay.GetResponseData("vnp_PayDate");
+                //Guid companyId = Guid.Parse(vnp_OrderInfo);
+                status = "success";
+
+                string taxVNPay = orderId.ToString();
+                var check = await this.context.Payments.Where(x => x.TransactionCode.Equals(taxVNPay)).FirstOrDefaultAsync();
+                //check.Status = true;
+                //check.CreateDate = DateTime.Now;
+                //check.VnpTransDate = vnp_TransDate;
+
+                var order = await this.context.Ordertbs.Where(x => x.OrderId.Equals(check.OrderId)).FirstOrDefaultAsync();
+                if (order != null)
+                {
+                    order.Status = true;
+                    this.context.Update(order);
+                    await this.context.SaveChangesAsync();
+                }
+                //var orderDetail = await this.context.Or.Where(x => x.OrderId.Equals(check.OrderId)).ToListAsync();
+                //if (orderDetail != null)
+                //{
+                //    foreach (var detail in orderDetail)
+                //    {
+                //        detail.Status = true;
+                //        this.context.OrderDetails.Update(detail);
+                //        await this.context.SaveChangesAsync();
+                //    }
+                //}
+
+                this.context.Payments.Update(check);
+                await this.context.SaveChangesAsync();
+            }
+
+            return Redirect(returnUrl + "?amount=" + amount + "&status=" + status);
+        }
+
+
         [HttpGet("get-payment-order-premium-log")]
         [AllowAnonymous]
         public async Task<IActionResult> GetOrderPre(string OrderPremiumIDLog)
@@ -154,6 +231,77 @@ namespace AWS.Controllers
             }
 
         }
+
+        [HttpGet("PaymentConfirm-OrderPremium")]
+        public async Task<IActionResult> ConfirmPremium()
+        {
+            string returnUrl = _configuration["VnPay:ReturnPath"];
+            float amount = 0;
+            string status = "failed";
+            if (Request.Query.Count > 0)
+            {
+                string vnp_HashSecret = _configuration["VnPay:HashSecret"]; //Secret key
+                var vnpayData = Request.Query;
+                VnPayLibrary vnpay = new VnPayLibrary();
+                foreach (string s in vnpayData.Keys)
+                {
+                    //get all querystring data
+                    if (!string.IsNullOrEmpty(s) && s.StartsWith("vnp_"))
+                    {
+                        vnpay.AddResponseData(s, vnpayData[s]);
+                    }
+                }
+                //Lay danh sach tham so tra ve tu VNPAY
+                //vnp_TxnRef: Ma don hang merchant gui VNPAY tai command=pay    
+                //vnp_TransactionNo: Ma GD tai he thong VNPAY
+                //vnp_ResponseCode:Response code from VNPAY: 00: Thanh cong, Khac 00: Xem tai lieu
+                //vnp_SecureHash: HmacSHA512 cua du lieu tra ve
+
+                long orderId = Convert.ToInt64(vnpay.GetResponseData("vnp_TxnRef"));
+                float vnp_Amount = Convert.ToInt64(vnpay.GetResponseData("vnp_Amount")) / 10000;
+                amount = vnp_Amount;
+                long vnpayTranId = Convert.ToInt64(vnpay.GetResponseData("vnp_TransactionNo"));
+                string vnp_ResponseCode = vnpay.GetResponseData("vnp_ResponseCode");
+                string vnp_TransactionStatus = vnpay.GetResponseData("vnp_TransactionStatus");
+                String vnp_SecureHash = Request.Query["vnp_SecureHash"];
+                bool checkSignature = vnpay.ValidateSignature(vnp_SecureHash, vnp_HashSecret);
+                var vnp_OrderInfo = vnpay.GetResponseData("vnp_OrderInfo");
+                var vnp_TransDate = vnpay.GetResponseData("vnp_PayDate");
+                //Guid companyId = Guid.Parse(vnp_OrderInfo);
+                status = "success";
+
+                string taxVNPay = orderId.ToString();
+                var check = await this.context.OrderPremiumLogs.Where(x => x.TransactionCode.Equals(taxVNPay)).FirstOrDefaultAsync();
+
+                //check.Status = true;
+                //check.CreateDate = DateTime.Now;
+                //check.VnpTransDate = vnp_TransDate;
+
+                var order = await this.context.OrderPremia.Where(x => x.OrderPremiumId.Equals(check.OrderPremiumId)).FirstOrDefaultAsync();
+                if (order != null)
+                {
+                    order.Status = true;
+                    this.context.Update(order);
+                    await this.context.SaveChangesAsync();
+                }
+                //var orderDetail = await this.context.Or.Where(x => x.OrderId.Equals(check.OrderId)).ToListAsync();
+                //if (orderDetail != null)
+                //{
+                //    foreach (var detail in orderDetail)
+                //    {
+                //        detail.Status = true;
+                //        this.context.OrderDetails.Update(detail);
+                //        await this.context.SaveChangesAsync();
+                //    }
+                //}
+
+                this.context.OrderPremiumLogs.Update(check);
+                await this.context.SaveChangesAsync();
+            }
+
+            return Redirect(returnUrl + "?amount=" + amount + "&status=" + status);
+        }
+
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         [HttpGet("get-payment-order-custome")]
         [AllowAnonymous]
@@ -273,152 +421,9 @@ namespace AWS.Controllers
 
         /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        /// <summary>
-        /// [Guest] Endpoint for company confirm payment with condition
-        /// </summary>
-        /// <returns>List of user</returns>
-        /// <response code="200">Returns the list of user</response>
-        /// <response code="204">Returns if list of user is empty</response>
-        /// <response code="403">Return if token is access denied</response>
-        [HttpGet("PaymentConfirm")]
-        public async Task<IActionResult> Confirm()
-        {
-            string returnUrl = _configuration["VnPay:ReturnPath"];
-            float amount = 0;
-            string status = "failed";
-            if (Request.Query.Count > 0)
-            {
-                string vnp_HashSecret = _configuration["VnPay:HashSecret"]; //Secret key
-                var vnpayData = Request.Query;
-                VnPayLibrary vnpay = new VnPayLibrary();
-                foreach (string s in vnpayData.Keys)
-                {
-                    //get all querystring data
-                    if (!string.IsNullOrEmpty(s) && s.StartsWith("vnp_"))
-                    {
-                        vnpay.AddResponseData(s, vnpayData[s]);
-                    }
-                }
-                //Lay danh sach tham so tra ve tu VNPAY
-                //vnp_TxnRef: Ma don hang merchant gui VNPAY tai command=pay    
-                //vnp_TransactionNo: Ma GD tai he thong VNPAY
-                //vnp_ResponseCode:Response code from VNPAY: 00: Thanh cong, Khac 00: Xem tai lieu
-                //vnp_SecureHash: HmacSHA512 cua du lieu tra ve
+      
 
-                long orderId = Convert.ToInt64(vnpay.GetResponseData("vnp_TxnRef"));
-                float vnp_Amount = Convert.ToInt64(vnpay.GetResponseData("vnp_Amount")) / 10000;
-                amount = vnp_Amount;
-                long vnpayTranId = Convert.ToInt64(vnpay.GetResponseData("vnp_TransactionNo"));
-                string vnp_ResponseCode = vnpay.GetResponseData("vnp_ResponseCode");
-                string vnp_TransactionStatus = vnpay.GetResponseData("vnp_TransactionStatus");
-                String vnp_SecureHash = Request.Query["vnp_SecureHash"];
-                bool checkSignature = vnpay.ValidateSignature(vnp_SecureHash, vnp_HashSecret);
-                var vnp_OrderInfo = vnpay.GetResponseData("vnp_OrderInfo");
-                var vnp_TransDate = vnpay.GetResponseData("vnp_PayDate");
-                //Guid companyId = Guid.Parse(vnp_OrderInfo);
-                status = "success";
-
-                string taxVNPay = orderId.ToString();
-                var check = await this.context.Payments.Where(x => x.TransactionCode.Equals(taxVNPay)).FirstOrDefaultAsync();
-                //check.Status = true;
-                //check.CreateDate = DateTime.Now;
-                //check.VnpTransDate = vnp_TransDate;
-
-                var order = await this.context.Ordertbs.Where(x => x.OrderId.Equals(check.OrderId)).FirstOrDefaultAsync();
-                if (order != null)
-                {
-                    order.Status = true;
-                    this.context.Update(order);
-                    await this.context.SaveChangesAsync();
-                }
-                //var orderDetail = await this.context.Or.Where(x => x.OrderId.Equals(check.OrderId)).ToListAsync();
-                //if (orderDetail != null)
-                //{
-                //    foreach (var detail in orderDetail)
-                //    {
-                //        detail.Status = true;
-                //        this.context.OrderDetails.Update(detail);
-                //        await this.context.SaveChangesAsync();
-                //    }
-                //}
-
-                this.context.Payments.Update(check);
-                await this.context.SaveChangesAsync();
-            }
-
-            return Redirect(returnUrl + "?amount=" + amount + "&status=" + status);
-        }
-
-
-        [HttpGet("PaymentConfirm-OrderPremium")]
-        public async Task<IActionResult> ConfirmPremium()
-        {
-            string returnUrl = _configuration["VnPay:ReturnPath"];
-            float amount = 0;
-            string status = "failed";
-            if (Request.Query.Count > 0)
-            {
-                string vnp_HashSecret = _configuration["VnPay:HashSecret"]; //Secret key
-                var vnpayData = Request.Query;
-                VnPayLibrary vnpay = new VnPayLibrary();
-                foreach (string s in vnpayData.Keys)
-                {
-                    //get all querystring data
-                    if (!string.IsNullOrEmpty(s) && s.StartsWith("vnp_"))
-                    {
-                        vnpay.AddResponseData(s, vnpayData[s]);
-                    }
-                }
-                //Lay danh sach tham so tra ve tu VNPAY
-                //vnp_TxnRef: Ma don hang merchant gui VNPAY tai command=pay    
-                //vnp_TransactionNo: Ma GD tai he thong VNPAY
-                //vnp_ResponseCode:Response code from VNPAY: 00: Thanh cong, Khac 00: Xem tai lieu
-                //vnp_SecureHash: HmacSHA512 cua du lieu tra ve
-
-                long orderId = Convert.ToInt64(vnpay.GetResponseData("vnp_TxnRef"));
-                float vnp_Amount = Convert.ToInt64(vnpay.GetResponseData("vnp_Amount")) / 10000;
-                amount = vnp_Amount;
-                long vnpayTranId = Convert.ToInt64(vnpay.GetResponseData("vnp_TransactionNo"));
-                string vnp_ResponseCode = vnpay.GetResponseData("vnp_ResponseCode");
-                string vnp_TransactionStatus = vnpay.GetResponseData("vnp_TransactionStatus");
-                String vnp_SecureHash = Request.Query["vnp_SecureHash"];
-                bool checkSignature = vnpay.ValidateSignature(vnp_SecureHash, vnp_HashSecret);
-                var vnp_OrderInfo = vnpay.GetResponseData("vnp_OrderInfo");
-                var vnp_TransDate = vnpay.GetResponseData("vnp_PayDate");
-                //Guid companyId = Guid.Parse(vnp_OrderInfo);
-                status = "success";
-
-                string taxVNPay = orderId.ToString();
-                var check = await this.context.OrderPremiumLogs.Where(x => x.TransactionCode.Equals(taxVNPay)).FirstOrDefaultAsync();
-
-                //check.Status = true;
-                //check.CreateDate = DateTime.Now;
-                //check.VnpTransDate = vnp_TransDate;
-
-                var order = await this.context.OrderPremia.Where(x => x.OrderPremiumId.Equals(check.OrderPremiumId)).FirstOrDefaultAsync();
-                if (order != null)
-                {
-                    order.Status = true;
-                    this.context.Update(order);
-                    await this.context.SaveChangesAsync();
-                }
-                //var orderDetail = await this.context.Or.Where(x => x.OrderId.Equals(check.OrderId)).ToListAsync();
-                //if (orderDetail != null)
-                //{
-                //    foreach (var detail in orderDetail)
-                //    {
-                //        detail.Status = true;
-                //        this.context.OrderDetails.Update(detail);
-                //        await this.context.SaveChangesAsync();
-                //    }
-                //}
-
-                this.context.OrderPremiumLogs.Update(check);
-                await this.context.SaveChangesAsync();
-            }
-
-            return Redirect(returnUrl + "?amount=" + amount + "&status=" + status);
-        }
+      
 
     }
 }
