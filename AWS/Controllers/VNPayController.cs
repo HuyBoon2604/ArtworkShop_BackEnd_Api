@@ -54,7 +54,7 @@ namespace AWS.Controllers
                     pay.AddRequestData("vnp_Version", "2.1.0"); //Phiên bản api mà merchant kết nối. Phiên bản hiện tại là 2.0.0
                     pay.AddRequestData("vnp_Command", "pay"); //Mã API sử dụng, mã cho giao dịch thanh toán là 'pay'
                     pay.AddRequestData("vnp_TmnCode", tmnCode); //Mã website của merchant trên hệ thống của VNPAY (khi đăng ký tài khoản sẽ có trong mail VNPAY gửi về)
-                    pay.AddRequestData("vnp_Amount", ((int)check.Amount * 100).ToString()); //số tiền cần thanh toán, công thức: số tiền * 100 - ví dụ 10.000 (mười nghìn đồng) --> 1000000
+                    pay.AddRequestData("vnp_Amount", ((int)check.Amount * 10000).ToString()); //số tiền cần thanh toán, công thức: số tiền * 100 - ví dụ 10.000 (mười nghìn đồng) --> 1000000
                     pay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss")); //ngày thanh toán theo định dạng yyyyMMddHHmmss
                     pay.AddRequestData("vnp_CurrCode", "VND"); //Đơn vị tiền tệ sử dụng thanh toán. Hiện tại chỉ hỗ trợ VND
                     pay.AddRequestData("vnp_IpAddr", ip); //Địa chỉ IP của khách hàng thực hiện giao dịch
@@ -193,7 +193,7 @@ namespace AWS.Controllers
                     pay.AddRequestData("vnp_Version", "2.1.0"); //Phiên bản api mà merchant kết nối. Phiên bản hiện tại là 2.0.0
                     pay.AddRequestData("vnp_Command", "pay"); //Mã API sử dụng, mã cho giao dịch thanh toán là 'pay'
                     pay.AddRequestData("vnp_TmnCode", tmnCode); //Mã website của merchant trên hệ thống của VNPAY (khi đăng ký tài khoản sẽ có trong mail VNPAY gửi về)
-                    pay.AddRequestData("vnp_Amount", ((int)check.Total * 100).ToString()); //số tiền cần thanh toán, công thức: số tiền * 100 - ví dụ 10.000 (mười nghìn đồng) --> 1000000
+                    pay.AddRequestData("vnp_Amount", ((int)check.Total * 10000).ToString()); //số tiền cần thanh toán, công thức: số tiền * 100 - ví dụ 10.000 (mười nghìn đồng) --> 1000000
                     pay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss")); //ngày thanh toán theo định dạng yyyyMMddHHmmss
                     pay.AddRequestData("vnp_CurrCode", "VND"); //Đơn vị tiền tệ sử dụng thanh toán. Hiện tại chỉ hỗ trợ VND
                     pay.AddRequestData("vnp_IpAddr", ip); //Địa chỉ IP của khách hàng thực hiện giao dịch
@@ -234,7 +234,7 @@ namespace AWS.Controllers
 
         }
 
-        [HttpGet("PaymentConfirm-OrderPremium")]
+        [HttpGet("PaymentConfirmOrderPremium")]
         public async Task<IActionResult> ConfirmPremium()
         {
             string returnUrl = _configuration["VnPay:ReturnPath"];
@@ -275,30 +275,50 @@ namespace AWS.Controllers
                 string taxVNPay = orderId.ToString();
                 var check = await this.context.OrderPremiumLogs.Where(x => x.TransactionCode.Equals(taxVNPay)).FirstOrDefaultAsync();
 
-                //check.Status = true;
-                //check.CreateDate = DateTime.Now;
-                //check.VnpTransDate = vnp_TransDate;
+                //var order = await this.context.OrderPremia
+                //         .Where(x => check != null && x.OrderPremiumId.Equals(check.OrderPremiumId))
+                //         .FirstOrDefaultAsync();
 
-                var order = await this.context.OrderPremia.Where(x => x.OrderPremiumId.Equals(check.OrderPremiumId)).FirstOrDefaultAsync();
-                if (order != null)
-                {
-                    order.Status = true;
-                    this.context.Update(order);
-                    await this.context.SaveChangesAsync();
-                }
-                //var orderDetail = await this.context.Or.Where(x => x.OrderId.Equals(check.OrderId)).ToListAsync();
-                //if (orderDetail != null)
+                //if (order != null)
                 //{
-                //    foreach (var detail in orderDetail)
-                //    {
-                //        detail.Status = true;
-                //        this.context.OrderDetails.Update(detail);
-                //        await this.context.SaveChangesAsync();
-                //    }
+                //    order.Status = true;
+                //    this.context.Update(order);
+                //    await this.context.SaveChangesAsync();
                 //}
 
-                this.context.OrderPremiumLogs.Update(check);
-                await this.context.SaveChangesAsync();
+                //this.context.OrderPremiumLogs.Update(check);
+                //await this.context.SaveChangesAsync();
+                if (check != null)
+                {
+                    var order = await this.context.OrderPremia
+                        .Where(x => x.OrderPremiumId == check.OrderPremiumId)
+                        .FirstOrDefaultAsync();
+
+                    if (order != null)
+                    {
+                        order.Status = true;
+                        this.context.Update(order);
+                    }
+                    else
+                    {
+                        throw new Exception("ko tim thay don hang");
+                        // Xử lý trường hợp không tìm thấy đơn hàng
+                    }
+
+                    // Cập nhật thông tin của đơn hàng log
+                    check.Status = true;
+                    this.context.Update(check);
+
+                    await this.context.SaveChangesAsync();
+                }
+                else
+                {
+                    // Xử lý trường hợp không tìm thấy thông tin giao dịch
+                    throw new Exception("ko tim thay thong tin giao dich");
+
+                }
+
+
             }
 
             return Redirect(returnUrl + "?amount=" + amount + "&status=" + status);
@@ -326,7 +346,7 @@ namespace AWS.Controllers
                     pay.AddRequestData("vnp_Version", "2.1.0"); //Phiên bản api mà merchant kết nối. Phiên bản hiện tại là 2.0.0
                     pay.AddRequestData("vnp_Command", "pay"); //Mã API sử dụng, mã cho giao dịch thanh toán là 'pay'
                     pay.AddRequestData("vnp_TmnCode", tmnCode); //Mã website của merchant trên hệ thống của VNPAY (khi đăng ký tài khoản sẽ có trong mail VNPAY gửi về)
-                    pay.AddRequestData("vnp_Amount", ((int)check.Amount * 100).ToString()); //số tiền cần thanh toán, công thức: số tiền * 100 - ví dụ 10.000 (mười nghìn đồng) --> 1000000
+                    pay.AddRequestData("vnp_Amount", ((int)check.Amount * 10000).ToString()); //số tiền cần thanh toán, công thức: số tiền * 100 - ví dụ 10.000 (mười nghìn đồng) --> 1000000
                     pay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss")); //ngày thanh toán theo định dạng yyyyMMddHHmmss
                     pay.AddRequestData("vnp_CurrCode", "VND"); //Đơn vị tiền tệ sử dụng thanh toán. Hiện tại chỉ hỗ trợ VND
                     pay.AddRequestData("vnp_IpAddr", ip); //Địa chỉ IP của khách hàng thực hiện giao dịch

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AWS")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d1eda27a4f8a88472e43a1dee19c079d6d87bced")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+09b46005d0ce94060bc711a19e09c104c2e3c32b")]
 [assembly: System.Reflection.AssemblyProductAttribute("AWS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AWS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
