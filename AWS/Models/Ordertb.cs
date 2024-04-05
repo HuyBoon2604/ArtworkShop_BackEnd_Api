@@ -17,6 +17,7 @@ namespace AWS.Models
         public bool? Status { get; set; }
         public decimal? Total { get; set; }
         public bool? StatusCancel { get; set; }
+        public bool? StatusProccessing { get; set; }
 
         public virtual Artwork? Artwork { get; set; }
         public virtual Usertb? User { get; set; }

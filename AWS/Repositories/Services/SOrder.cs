@@ -240,9 +240,8 @@ namespace AWS.Repositories.Services
                 // Update order status based on payment status
                
                     order.Status = true; // Assuming true means paid
-              
-                
-
+                    order.StatusProccessing = false;
+                 
                 cxt.Ordertbs.Update(order);
                 await cxt.SaveChangesAsync();
 
