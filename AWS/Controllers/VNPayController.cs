@@ -209,7 +209,7 @@ namespace AWS.Controllers
                     string paymentUrl = pay.CreateRequestUrl(url, hashSecret);
 
                     // update db
-                    //check.TransactionCode = taxVNPay;
+                    check.TransactionCode = taxVNPay;
                     this.context.OrderPremiumLogs.Update(check);
                     if (await this.context.SaveChangesAsync() > 0)
                     {
@@ -362,7 +362,7 @@ namespace AWS.Controllers
                     string paymentUrl = pay.CreateRequestUrl(url, hashSecret);
 
                     // update db
-                    //check.TransactionCode = taxVNPay;
+                    check.TransctionCode = taxVNPay;
                     this.context.PaymentCusArts.Update(check);
                     if (await this.context.SaveChangesAsync() > 0)
                     {
@@ -387,7 +387,7 @@ namespace AWS.Controllers
 
         }
 
-        [HttpGet("PaymentConfirm-CustomeArtwork-Order")]
+        [HttpGet("PaymentConfirmCustomeArtworkOrder")]
         public async Task<IActionResult> ConfirmCustomeArtwork()
         {
             string returnUrl = _configuration["VnPay:ReturnPath"];
