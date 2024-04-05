@@ -63,7 +63,30 @@ namespace AWS.Controllers
             }
 
         }
+        
+        [HttpGet]
+        [Route("get-custome-artwork-by-Userid")]
 
+        public async Task<IActionResult> GetCustomeArtworkByUserId(string userid)
+        {
+            try
+            {
+                var a = await this.artCustome.GetCustomeArtworkByUserId(userid);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the GetCustomeArtworkByUserId method: {ex}");
+
+                throw;
+            }
+
+        }
 
         [HttpPost]
         [Route("create-new-art-custome")]

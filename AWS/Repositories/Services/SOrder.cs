@@ -53,10 +53,10 @@ namespace AWS.Repositories.Services
             {
                 var add = new Ordertb();
                 add.OrderId = "OC" + Guid.NewGuid().ToString().Substring(0, 6);
-                add.ArtworkCustomeId = order.ArtwokCustomeID;
+                //add.ArtworkCustomeId = order.ArtwokCustomeID;
                 add.UserId = order.UserID;
                 add.CreateDate = order.CreateDate;
-                add.StatusCustome = false;
+                //add.StatusCustome = false;
                 //add.StatusCancel = true;
                 add.Total = order.Money;
 

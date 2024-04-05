@@ -17,11 +17,8 @@ namespace AWS.Models
         public bool? Status { get; set; }
         public decimal? Total { get; set; }
         public bool? StatusCancel { get; set; }
-        public bool? StatusCustome { get; set; }
-        public string? ArtworkCustomeId { get; set; }
 
         public virtual Artwork? Artwork { get; set; }
-        public virtual ArtworkCustome? ArtworkCustome { get; set; }
         public virtual Usertb? User { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }
     }

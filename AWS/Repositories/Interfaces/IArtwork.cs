@@ -14,6 +14,7 @@ namespace AWS.Repositories.Interfaces
         Task<Artwork> UpdateArtWork(string artworkId, UpdateArtWork updatedArtwork);
         Task<Artwork> UpdateArtWorkImageUrl2(string artworkId, UpdateArtWork2 updatedArtwork);
         Task<Artwork> UpdateArtWorkProccessing(string artworkId, UpdateArtWorkProccessing updatedArtwork);
+        Task<Artwork> UpdateArtWorkProccessingFalse(string artworkId, UpdateArtWorkProccessing updatedArtwork);
         Task<List<Artwork>> GetByGenre(string genreId);
         Task<List<Artwork>> GetArtworkStatusTrue();
         Task<bool> Dellete(string id);

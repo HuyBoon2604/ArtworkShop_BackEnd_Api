@@ -12,6 +12,7 @@ namespace AWS.Models
             Comments = new HashSet<Comment>();
             LikeCollections = new HashSet<LikeCollection>();
             OrderPremia = new HashSet<OrderPremium>();
+            OrderRequires = new HashSet<OrderRequire>();
             Ordertbs = new HashSet<Ordertb>();
             Reports = new HashSet<Report>();
             Roles = new HashSet<Role>();
@@ -38,6 +39,7 @@ namespace AWS.Models
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<LikeCollection> LikeCollections { get; set; }
         public virtual ICollection<OrderPremium> OrderPremia { get; set; }
+        public virtual ICollection<OrderRequire> OrderRequires { get; set; }
         public virtual ICollection<Ordertb> Ordertbs { get; set; }
         public virtual ICollection<Report> Reports { get; set; }
 

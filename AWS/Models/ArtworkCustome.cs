@@ -7,7 +7,7 @@ namespace AWS.Models
     {
         public ArtworkCustome()
         {
-            Ordertbs = new HashSet<Ordertb>();
+            OrderRequires = new HashSet<OrderRequire>();
         }
 
         public string ArtworkCustomeId { get; set; } = null!;
@@ -20,6 +20,6 @@ namespace AWS.Models
         public decimal? Price { get; set; }
 
         public virtual Usertb? User { get; set; }
-        public virtual ICollection<Ordertb> Ordertbs { get; set; }
+        public virtual ICollection<OrderRequire> OrderRequires { get; set; }
     }
 }

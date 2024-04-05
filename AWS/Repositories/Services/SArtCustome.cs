@@ -93,6 +93,19 @@ namespace AWS.Repositories.Services
             }
         }
 
+        public async Task<ArtworkCustome> GetCustomeArtworkByUserId(string Userid)
+        {
+            try
+            {
+                var y = await this.cxt.ArtworkCustomes.Where(x => x.UserId == Userid).FirstOrDefaultAsync();
+                return y;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
         public async Task<ArtworkCustome> UpdateMoneyArtCustome(string artid, decimal money)
         {
             try

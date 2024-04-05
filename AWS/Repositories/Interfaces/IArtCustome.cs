@@ -11,6 +11,7 @@ namespace AWS.Repositories.Interfaces
         Task<ArtworkCustome> UpdateMoneyArtCustome(string artid, decimal money);
         Task<bool> Delete(string artid);
         Task<ArtworkCustome> GetCustomeArtworkById(string artid);
+        Task<ArtworkCustome> GetCustomeArtworkByUserId(string Userid);
      
     }
 }

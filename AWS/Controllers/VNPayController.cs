@@ -130,7 +130,7 @@ namespace AWS.Controllers
                     string paymentUrl = pay.CreateRequestUrl(url, hashSecret);
 
                     // update db
-                    check.TransactionCode = taxVNPay;
+                    //check.TransactionCode = taxVNPay;
                     this.context.OrderPremiumLogs.Update(check);
                     if (await this.context.SaveChangesAsync() > 0)
                     {
@@ -272,6 +272,7 @@ namespace AWS.Controllers
 
                 string taxVNPay = orderId.ToString();
                 var check = await this.context.OrderPremiumLogs.Where(x => x.TransactionCode.Equals(taxVNPay)).FirstOrDefaultAsync();
+
                 //check.Status = true;
                 //check.CreateDate = DateTime.Now;
                 //check.VnpTransDate = vnp_TransDate;

@@ -186,6 +186,37 @@ namespace AWS.Repositories.Services
             }
         }
 
+        public async Task<Artwork> UpdateArtWorkProccessingFalse(string artworkId, UpdateArtWorkProccessing updatedArtwork)
+        {
+            try
+            {
+                // Retrieve the artwork from the database
+                var artwork = await cxt.Artworks.FindAsync(artworkId);
+
+                if (artwork == null)
+                {
+                    throw new Exception($"Artwork with ID {artworkId} not found.");
+                }
+
+                // Update the artwork properties
+
+                artwork.Reason = updatedArtwork.Reason ?? artwork.Reason;
+
+                artwork.TimeProcessing = DateTime.Now;
+                artwork.StatusProcessing = false;
+
+                // Update the artwork in the database
+                cxt.Artworks.Update(artwork);
+                await cxt.SaveChangesAsync();
+
+                return artwork;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("An error occurred while updating artwork.", e);
+            }
+        }
+
         public async Task<List<Artwork>> GetAllArtworks()
         {
             try
@@ -315,7 +346,7 @@ namespace AWS.Repositories.Services
             }
         }
 
-       
+     
     }
 }
 

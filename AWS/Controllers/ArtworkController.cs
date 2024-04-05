@@ -308,5 +308,31 @@ namespace AWS.Controllers
             }
 
         }
+
+        
+        [HttpPost]
+        [Route("update-artwork-proccessing-false")]
+
+        public async Task<IActionResult> UpdateArtWorkProccessingFalse(string artworkId, UpdateArtWorkProccessing updatedArtwork)
+        {
+            try
+            {
+                var a = await this.artwork.UpdateArtWorkProccessingFalse(artworkId, updatedArtwork);
+                if (a == null)
+                {
+                    return NotFound();
+                }
+                return Ok(a);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred in the UpdateArtWorkProccessingFalse method: {ex}");
+
+                throw;
+            }
+
+        }
+
     }
 }
