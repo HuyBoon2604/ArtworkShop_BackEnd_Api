@@ -49,11 +49,11 @@ namespace AWS.Repositories.Services
             }
         }
 
-        public async Task<OrderRequire> GetOrderRequireByArtCustomeId(string id)
+        public async Task<List<OrderRequire>> GetOrderRequireByArtCustomeId(string id)
         {
             try
             {
-                var y = await this.cxt.OrderRequires.Where(x => x.ArtworkCustomeId == id).FirstOrDefaultAsync();
+                var y = await this.cxt.OrderRequires.Where(x => x.ArtworkCustomeId == id).ToListAsync();
                 return y;
             }
             catch (Exception e)
