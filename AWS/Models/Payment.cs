@@ -5,11 +5,6 @@ namespace AWS.Models
 {
     public partial class Payment
     {
-        public Payment()
-        {
-            PaymentLogs = new HashSet<PaymentLog>();
-        }
-
         public string PaymentId { get; set; } = null!;
         public string? OrderId { get; set; }
         public bool? Status { get; set; }
@@ -20,6 +15,5 @@ namespace AWS.Models
         public bool? StatusCancle { get; set; }
 
         public virtual Ordertb? Order { get; set; }
-        public virtual ICollection<PaymentLog> PaymentLogs { get; set; }
     }
 }
